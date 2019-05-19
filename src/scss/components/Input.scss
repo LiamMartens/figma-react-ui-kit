@@ -1,0 +1,35 @@
+.input {
+    display: inline-block;
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 0 0.857em;
+    border: 1px solid $color-gray;
+    outline: 0;
+    font-family: $font-family-body;
+    font-weight: 500;
+    font-size: 14px;
+    height: 2.85em;
+    color: $color-darkgray;
+    border-radius: 2px;
+
+    &::placeholder {
+        color: $color-mediumgray;
+    }
+
+    &:focus {
+        border: 2px solid $color-primary;
+        padding: 0 calc(0.857em - 1px);
+    }
+
+    &.s {
+        font-size: $font-size-s;
+    }
+
+    &.m {
+        font-size: $font-size-m;
+    }
+
+    &.l {
+        font-size: $font-size-l;
+    }
+}
