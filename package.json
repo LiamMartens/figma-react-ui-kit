@@ -1,15 +1,15 @@
 {
-  "name": "figma-ui-kit",
-  "version": "1.0.0",
-  "description": "",
+  "name": "figma-react-ui-kit",
+  "version": "0.0.1",
+  "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack --watch --mode=production",
     "prepare": "npm run build"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Figma", "UI", "React"],
+  "author": "Liam Martens <hi@liammartens.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^16.8.17",
