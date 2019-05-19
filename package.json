@@ -5,7 +5,8 @@
   "main": "dist/react.js",
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack --watch --mode=production"
+    "dev": "webpack --watch --mode=production",
+    "prepare": "npm run build"
   },
   "keywords": [],
   "author": "",
