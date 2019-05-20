@@ -1,14 +1,10 @@
 import * as React from 'react';
-import * as styles from '../../scss/components/Input.scss';
-import { ControlSizes } from '../constants';
+import * as styles from 'src/scss/components/Input.scss';
+import { ControlSizes } from 'constants';
 import classNames from 'classnames';
+import { IInputProps } from 'typings/Input';
 
-interface IProps extends
-    React.HTMLAttributes<HTMLInputElement> {
-    size?: ControlSizes;
-}
-
-export class Input extends React.Component<IProps> {
+export class Input extends React.Component<IInputProps> {
     public static defaultProps = {
         size: ControlSizes.M,
     };

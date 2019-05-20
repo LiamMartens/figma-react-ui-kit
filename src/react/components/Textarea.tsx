@@ -1,14 +1,10 @@
 import * as React from 'react';
-import * as styles from '../../scss/components/Textarea.scss';
-import { ControlSizes } from '../constants';
+import * as styles from 'src/scss/components/Textarea.scss';
 import classNames from 'classnames';
+import { ControlSizes } from 'constants';
+import { ITextareaProps } from 'typings/Textarea';
 
-interface IProps extends
-    React.HTMLAttributes<HTMLTextAreaElement> {
-    size?: ControlSizes;
-}
-
-export class Textarea extends React.Component<IProps> {
+export class Textarea extends React.Component<ITextareaProps> {
     public static defaultProps = {
         size: ControlSizes.M,
     };

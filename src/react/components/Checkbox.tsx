@@ -1,15 +1,10 @@
 import * as React from 'react';
-import * as styles from '../../scss/components/Checkbox.scss';
+import * as styles from 'src/scss/components/Checkbox.scss';
 import classNames from 'classnames';
-import { ControlSizes } from '../constants';
+import { ControlSizes } from 'constants';
+import { ICheckboxProps } from 'typings/Checkbox';
 
-interface IProps extends
-    React.HTMLAttributes<HTMLInputElement> {
-    size?: ControlSizes;
-    label?: string;
-}
-
-export class Checkbox extends React.Component<IProps> {
+export class Checkbox extends React.Component<ICheckboxProps> {
     public static defaultProps = {
         size: ControlSizes.S,
         label: '',

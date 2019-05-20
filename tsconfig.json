@@ -5,9 +5,13 @@
         "jsx": "react",
         "moduleResolution": "node",
         "esModuleInterop": true,
-        "outDir": "./dist"
+        "outDir": "./dist",
+        "rootDir": "./",
+        "baseUrl": "./"
     },
     "include": [
         "./src/**/*",
+        "./typings/**/*",
+        "./constants/**/*"
     ]
 }

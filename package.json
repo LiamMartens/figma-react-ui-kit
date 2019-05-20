@@ -36,6 +36,8 @@
   },
   "files": [
     "./dist/*.css",
-    "./dist/*.js"
+    "./dist/*.js",
+    "./typings/*.d.ts",
+    "./constants/*.ts"
   ]
 }
