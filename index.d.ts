@@ -3,7 +3,10 @@ import { IButtonProps } from './typings/Button';
 import { ICheckboxProps } from './typings/Checkbox';
 import { IInputProps } from './typings/Input';
 import { ITextareaProps } from './typings/Textarea';
+import { ControlSizes as EControlSizes, ButtonTypes as EButtonTypes } from './constants';
 
+declare const ControlSizes: typeof EControlSizes;
+declare const ButtonTypes: typeof EButtonTypes;
 declare const Button: React.ComponentClass<IButtonProps>;
 declare const Checkbox: React.ComponentClass<ICheckboxProps>;
 declare const Input: React.ComponentClass<IInputProps>;

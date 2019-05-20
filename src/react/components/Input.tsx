@@ -6,18 +6,18 @@ import { IInputProps } from 'typings/Input';
 
 export class Input extends React.Component<IInputProps> {
     public static defaultProps = {
-        size: ControlSizes.M,
+        inputSize: ControlSizes.M,
     };
 
     public render() {
-        const { size, className, ...rest } = this.props;
+        const { inputSize, className, ...rest } = this.props;
 
         return (
             <input
                 {...rest}
                 className={classNames({
                     [styles.input]: true,
-                    [styles[size]]: true,
+                    [styles[inputSize]]: true,
                     [className]: !!className
                 })}
             />

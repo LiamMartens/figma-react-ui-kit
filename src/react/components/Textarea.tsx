@@ -6,18 +6,18 @@ import { ITextareaProps } from 'typings/Textarea';
 
 export class Textarea extends React.Component<ITextareaProps> {
     public static defaultProps = {
-        size: ControlSizes.M,
+        textareaSize: ControlSizes.M,
     };
 
     public render() {
-        const { children, size, className, ...rest } = this.props;
+        const { children, textareaSize, className, ...rest } = this.props;
 
         return (
             <textarea
                 {...rest}
                 className={classNames({
                     [styles.input]: true,
-                    [styles[size]]: true,
+                    [styles[textareaSize]]: true,
                     [className]: !!className
                 })}
             >{children}</textarea>

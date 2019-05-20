@@ -65,6 +65,10 @@ module.exports = {
         ]
     },
     resolve: {
+        alias: {
+            'src': path.join(__dirname, 'src'),
+            'constants': path.join(__dirname, 'constants'),
+        },
         extensions: ['.tsx', '.ts', '.js', '.scss']
     },
     plugins: [

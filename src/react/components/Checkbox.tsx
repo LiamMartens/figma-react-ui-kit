@@ -6,17 +6,17 @@ import { ICheckboxProps } from 'typings/Checkbox';
 
 export class Checkbox extends React.Component<ICheckboxProps> {
     public static defaultProps = {
-        size: ControlSizes.S,
+        checkboxSize: ControlSizes.S,
         label: '',
     }
 
     public render() {
-        const { label, size, ...rest } = this.props;
+        const { label, checkboxSize, ...rest } = this.props;
 
         return (
             <label className={classNames({
                 [styles.checkbox]: true,
-                [styles[size]]: true,
+                [styles[checkboxSize]]: true,
             })}>
                 <input
                     {...rest}
