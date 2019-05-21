@@ -1,6 +1,6 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
@@ -35,9 +35,9 @@
     "classnames": "^2.2.6"
   },
   "files": [
-    "./dist/*.css",
-    "./dist/*.js",
-    "./typings/*.d.ts",
-    "./constants/*.ts"
+    "dist/*.css",
+    "dist/*.js",
+    "typings/*.d.ts",
+    "constants/*.ts"
   ]
 }
