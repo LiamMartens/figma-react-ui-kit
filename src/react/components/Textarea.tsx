@@ -16,7 +16,7 @@ export class Textarea extends React.Component<ITextareaProps> {
             <textarea
                 {...rest}
                 className={classNames({
-                    [styles.input]: true,
+                    [styles.textarea]: true,
                     [styles[textareaSize]]: true,
                     [className]: !!className
                 })}
