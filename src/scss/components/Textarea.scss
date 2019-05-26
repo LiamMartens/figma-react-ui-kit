@@ -18,7 +18,7 @@
 
     &:focus {
         border: 2px solid $color-primary;
-        padding: 0 calc(0.857em - 1px);
+        padding: calc(0.857em - 1px);
     }
 
     &.s {

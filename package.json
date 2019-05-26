@@ -1,6 +1,6 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "UI",
     "React"
   ],
+  "repository": "https://github.com/LiamMartens/figma-react-ui-kit",
   "author": "Liam Martens <hi@liammartens.com>",
   "license": "ISC",
   "devDependencies": {
