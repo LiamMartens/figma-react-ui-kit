@@ -1,10 +1,10 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack --mode=production",
+    "build": "rm -rf dist; NODE_ENV=production webpack --mode=production",
     "dev": "NODE_ENV=development webpack-dev-server --watch",
     "prepare": "npm run build"
   },
