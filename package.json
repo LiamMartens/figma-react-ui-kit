@@ -4,7 +4,7 @@
   "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
-    "build": "tsc --emitDeclarationOnly && NODE_ENV=production webpack --mode=production",
+    "build": "NODE_ENV=production webpack --mode=production",
     "dev": "NODE_ENV=development webpack-dev-server --watch",
     "prepare": "npm run build"
   },

@@ -6,9 +6,11 @@ import { IInputLabelProps } from './typings/InputLabel';
 import { ITextareaProps } from './typings/Textarea';
 import { IIconButtonProps } from './typings/IconButton';
 import { ISelectOption, ISelectProps } from './typings/Select';
+import { IOption as IOptionMenuOption, IOptionMenuProps } from './typings/OptionMenu';
 import { ControlSizes as EControlSizes, ButtonTypes as EButtonTypes } from './constants';
 
 export type ISelectOption = ISelectOption;
+export type IOptionMenuOption = IOptionMenuOption;
 
 declare const ControlSizes: typeof EControlSizes;
 declare const ButtonTypes: typeof EButtonTypes;
@@ -22,3 +24,4 @@ declare const Select: React.ComponentClass<ISelectProps>;
 declare const Section: React.ComponentClass<React.HTMLAttributes<HTMLDivElement>>;
 declare const SectionBlock: React.ComponentClass<React.HTMLAttributes<HTMLDivElement>>;
 declare const SectionTitle: React.ComponentClass<React.HTMLAttributes<HTMLParagraphElement>>;
+declare const OptionMenu: React.ComponentClass<IOptionMenuProps>;
