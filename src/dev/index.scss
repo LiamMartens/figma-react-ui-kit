@@ -1,0 +1,31 @@
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.select,
+.button,
+.input {
+    margin-right: 5px;
+}
+
+.select {
+    min-width: 200px;
+}
+
+.checkboxes {
+    .checkbox {
+        display: block;
+        margin-bottom: 5px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.textarea {
+    display: block;
+    width: 400px;
+    height: 300px;
+}

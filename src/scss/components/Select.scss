@@ -12,7 +12,24 @@
     border-radius: 2px;
     user-select: none;
 
+    &.cleanBorder {
+        border: 1px solid transparent;
+
+        &:hover {
+            border: 1px solid rgba($color-dark, .1);
+
+            .arrow {
+                fill: $color-darkgray;
+            }
+        }
+
+        .arrow {
+            fill: $color-mediumgray;
+        }
+    }
+
     &.focus,
+    &.cleanBorder.focus,
     &:focus {
         border: 2px solid $color-primary;
         padding: 0 calc(0.857em - 1px);
@@ -61,14 +78,15 @@
     .arrow {
         display: block;
         margin-left: auto;
+        fill: $color-darkgray;
     }
 
     .optionsList {
         position: absolute;
         display: block;
-        top: 0;
-        left: 0;
-        right: 0;
+        top: -.2rem;
+        left: -.2rem;
+        right: -.2rem;
         padding: .4em 0;
         margin: 0;
         list-style: none;

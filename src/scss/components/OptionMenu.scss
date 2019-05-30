@@ -1,0 +1,54 @@
+.optionMenu {
+    position: relative;
+    display: inline-block;
+}
+
+.optionList {
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    padding: .4em 0;
+    list-style: none;
+    background-color: $color-darkgray;
+    color: $color-light;
+    font-family: $font-family-body;
+    user-select: none;
+    border-radius: 2px;
+    box-shadow: 0 0 5px rgba($color-dark, .1);
+
+    &.isOpen {
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    &.hangLeft {
+        left: auto;
+        right: 0;
+    }
+
+    &.s {
+        font-size: $font-size-s;
+    }
+
+    &.m {
+        font-size: $font-size-m;
+    }
+
+    &.l {
+        font-size: $font-size-l;
+    }
+}
+
+.option {
+    cursor: pointer;
+    padding: .5em 1em .45em 1em;
+
+    &:hover {
+        background: $color-primary;
+    }
+}

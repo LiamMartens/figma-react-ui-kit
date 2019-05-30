@@ -7,20 +7,43 @@ import { IInputProps } from 'typings/Input';
 export class Input extends React.Component<IInputProps> {
     public static defaultProps = {
         inputSize: ControlSizes.M,
+        inlineLabel: '',
+        cleanBorder: false,
     };
 
     public render() {
-        const { inputSize, className, ...rest } = this.props;
+        const { cleanBorder, inputSize, inlineLabel, className, ...rest } = this.props;
 
         return (
-            <input
-                {...rest}
-                className={classNames({
-                    [styles.input]: true,
-                    [styles[inputSize]]: true,
-                    [className]: !!className
-                })}
-            />
+            <label className={classNames({
+                [styles.wrap]: true,
+                [className]: !!className
+            })}>
+                <input
+                    {...rest}
+                    style={{
+                        paddingLeft: !!inlineLabel ? `calc(0.857em + ${inlineLabel.length / 1.5}em)` : '',
+                    }}
+                    className={classNames({
+                        [styles.input]: true,
+                        [styles.cleanBorder]: cleanBorder,
+                        [styles[inputSize]]: true,
+                    })}
+                />
+                {inlineLabel && (
+                    <span
+                        className={classNames({
+                            [styles.inlineLabel]: true,
+                            [styles[inputSize]]: true,
+                        })}
+                        style={{
+                            
+                        }}
+                    >
+                        {inlineLabel}
+                    </span>
+                )}
+            </label>
         );
     }
 }

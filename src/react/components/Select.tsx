@@ -14,6 +14,7 @@ export class Select extends React.Component<ISelectProps, IState> {
 
     public static defaultProps = {
         selectSize: ControlSizes.M,
+        cleanBorder: false,
     }
 
     public static getDerivedStateFromProps(nextProps: ISelectProps, curState: IState) {
@@ -45,7 +46,6 @@ export class Select extends React.Component<ISelectProps, IState> {
 
     private handleClick = (event: React.SyntheticEvent<HTMLDivElement>) => {
         event.preventDefault();
-        event.stopPropagation();
         if (
             !this.listRef.current
             || !this.listRef.current.contains(event.target as any)
@@ -67,15 +67,27 @@ export class Select extends React.Component<ISelectProps, IState> {
     }
 
     private handleWindowClick = (event: Event) => {
-        if (this.listRef.current && !this.listRef.current.contains(event.target as any)) {
+        const { isOpen } = this.state;
+        if (isOpen && this.listRef.current && !this.listRef.current.contains(event.target as any)) {
             this.setState({
                 isOpen: false,
             });
         }
     }
 
-    public componentDidMount() {
-        window.addEventListener('click', this.handleWindowClick);
+    public componentDidUpdate(prevProps: ISelectProps, prevState: IState) {
+        const { isOpen } = this.state;
+        if (isOpen !== prevState.isOpen) {
+            if (isOpen) {
+                window.requestAnimationFrame(() => {
+                    window.addEventListener('click', this.handleWindowClick);
+                });
+            } else {
+                window.requestAnimationFrame(() => {
+                    window.removeEventListener('click', this.handleWindowClick);
+                });
+            }
+        }
     }
 
     public componentWillUnmount() {
@@ -87,6 +99,7 @@ export class Select extends React.Component<ISelectProps, IState> {
             children,
             className,
             selectSize,
+            cleanBorder,
             options,
             placeholder,
             onChange,
@@ -102,6 +115,7 @@ export class Select extends React.Component<ISelectProps, IState> {
                     [styles.select]: true,
                     [styles[selectSize]]: true,
                     [styles.focus]: isOpen,
+                    [styles.cleanBorder]: cleanBorder,
                     [className]: !!className,
                 })}
             >

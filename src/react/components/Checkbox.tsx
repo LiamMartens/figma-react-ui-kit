@@ -11,12 +11,13 @@ export class Checkbox extends React.Component<ICheckboxProps> {
     }
 
     public render() {
-        const { label, checkboxSize, ...rest } = this.props;
+        const { label, checkboxSize, className, ...rest } = this.props;
 
         return (
             <label className={classNames({
                 [styles.checkbox]: true,
                 [styles[checkboxSize]]: true,
+                [className]: className,
             })}>
                 <input
                     {...rest}

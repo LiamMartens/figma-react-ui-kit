@@ -7,16 +7,18 @@ import { ControlSizes } from 'constants';
 export class IconButton extends React.Component<IIconButtonProps> {
     public static defaultProps = {
         buttonSize: ControlSizes.S,
+        on: false,
     };
 
     public render() {
-        const { children, buttonSize, className, ...rest } = this.props;
+        const { children, on, buttonSize, className, ...rest } = this.props;
 
         return (
             <button
                 {...rest}
                 className={classNames({
                     [styles.iconButton]: true,
+                    [styles.on]: on,
                     [styles[buttonSize]]: true,
                     [className]: !!className
                 })}

@@ -16,6 +16,7 @@ export interface ISelectProps extends
     value?: string;
     defaultValue?: string;
     selectSize?: ControlSizes;
+    cleanBorder?: boolean;
     options: ISelectOption[];
     onChange?: (option: ISelectOption) => void;
 }

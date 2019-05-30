@@ -2,28 +2,43 @@ const fs = require('fs');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        writeToDisk: true
+    },
     entry: {
-        react: path.resolve(__dirname, 'src/react/index.tsx'),
         style: path.resolve(__dirname, 'src/scss/style/style.scss'),
+        ...(isProduction ? {
+            react: path.resolve(__dirname, 'src/react/index.tsx'),
+        } : {
+            dev: path.resolve(__dirname, 'src/dev/index.tsx')
+        }),
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
-        library: 'FigmaUIKit',
-        libraryTarget: 'umd'
+        ...(isProduction && ({
+            library: 'FigmaUIKit',
+            libraryTarget: 'umd'
+        }))
     },
-    externals: [
-        {
-            react: {
-                root: 'React',
-                amd: 'react',
-                commonjs: 'react',
-                commonjs2: 'react',
-            },
-        }
-    ],
+    ...(isProduction && ({
+        externals: [
+            {
+                react: {
+                    root: 'React',
+                    amd: 'react',
+                    commonjs: 'react',
+                    commonjs2: 'react',
+                },
+            }
+        ],
+    })),
     module: {
         rules: [
             {
@@ -76,6 +91,11 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        })
+        }),
+        ...(isProduction ? [] : [new HtmlWebpackPlugin({
+            title: 'Figma React UI Kit',
+            filename: 'index.html',
+            template: path.join(__dirname, 'src/index.html'),
+        })]),
     ],
 };
