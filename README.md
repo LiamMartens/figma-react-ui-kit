@@ -59,6 +59,21 @@ node_modules/figma-ui-kit/dist/style.css
 />
 ```
 
+### OptionMenu
+```jsx
+<OptionMenu
+    options={[
+        {
+            label: 'My option',
+            value: 'my-option',
+            onClick: (value) => {
+                console.log(value);
+            }
+        }
+    ]}
+/>
+```
+
 ### Section
 ```html
 <Section>

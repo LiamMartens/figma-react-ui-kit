@@ -16,6 +16,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
 
     public static defaultProps = {
         optionMenuSize: ControlSizes.S,
+        stopPropagation: true,
     }
 
     public state = {
@@ -69,10 +70,17 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
 
     public render() {
         const { isOpen, hangLeft } = this.state;
-        const { optionMenuSize, options } = this.props;
+        const { optionMenuSize, options, className, stopPropagation, ...rest } = this.props;
 
         return (
-            <div ref={this.optionMenuRef} className={styles.optionMenu}>
+            <div
+                {...rest}
+                ref={this.optionMenuRef}
+                className={classNames({
+                    [styles.optionMenu]: true,
+                    [className]: className,
+                })}
+            >
                 <IconButton
                     on={isOpen}
                     buttonSize={optionMenuSize}
@@ -95,7 +103,10 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                         <li
                             key={o.label}
                             className={styles.option}
-                            onClick={() => this.handleOptionClick(o)}
+                            onClick={(event: React.SyntheticEvent<HTMLLIElement>) => {
+                                if (stopPropagation) event.stopPropagation();
+                                this.handleOptionClick(o);
+                            }}
                         >
                             {o.label}
                         </li>

@@ -10,5 +10,6 @@ export interface IOption<V = any> {
 export interface IOptionMenuProps<V = any> extends
     React.HTMLAttributes<HTMLDivElement> {
     optionMenuSize?: ControlSizes;
+    stopPropagation?: boolean;
     options: IOption<V>[];
 }
