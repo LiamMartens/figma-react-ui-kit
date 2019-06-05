@@ -33,9 +33,11 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
         }
     }
 
-    private handleClick = () => {
+    private handleClick = (event: React.SyntheticEvent) => {
+        const { stopPropagation } = this.props;
         const { isOpen } = this.state;
         const listRect = this.optionListRef.current.getBoundingClientRect() as DOMRect;
+        if (stopPropagation) event.stopPropagation();
         this.setState({
             isOpen: !isOpen,
             hangLeft: window.innerWidth < (listRect.x + listRect.width + 20)
