@@ -72,7 +72,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
 
     public render() {
         const { isOpen, hangLeft } = this.state;
-        const { optionMenuSize, options, className, stopPropagation, ...rest } = this.props;
+        const { optionMenuSize, options, className, stopPropagation, hangLeft: hangLeftOverride, ...rest } = this.props;
 
         return (
             <div
@@ -97,7 +97,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                     className={classNames({
                         [styles.optionList]: true,
                         [styles.isOpen]: isOpen,
-                        [styles.hangLeft]: hangLeft,
+                        [styles.hangLeft]: (hangLeftOverride !== undefined && hangLeftOverride !== null) ? hangLeftOverride : hangLeft,
                         [styles[optionMenuSize]]: true,
                     })}
                 >
