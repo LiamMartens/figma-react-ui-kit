@@ -8,7 +8,7 @@ type PropsWithDefaults = IButtonProps & typeof Button.defaultProps;
 
 export class Button extends React.Component<IButtonProps> {
     public static defaultProps = {
-        buttonSize: ControlSizes.M,
+        buttonSize: ControlSizes.S,
         buttonType: ButtonTypes.PRIMARY,
     }
 

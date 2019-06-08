@@ -1,7 +1,6 @@
 enum ControlSizes {
     S = 's',
-    M = 'm',
-    L = 'l'
+    M = 'm'
 };
 
 export default ControlSizes;

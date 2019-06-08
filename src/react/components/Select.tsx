@@ -13,7 +13,7 @@ export class Select extends React.Component<ISelectProps, IState> {
     private listRef = React.createRef<HTMLUListElement>();
 
     public static defaultProps = {
-        selectSize: ControlSizes.M,
+        selectSize: ControlSizes.S,
         cleanBorder: false,
     }
 

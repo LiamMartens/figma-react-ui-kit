@@ -6,7 +6,7 @@ import { IInputProps } from 'typings/Input';
 
 export class Input extends React.Component<IInputProps> {
     public static defaultProps = {
-        inputSize: ControlSizes.M,
+        inputSize: ControlSizes.S,
         inlineLabel: '',
         cleanBorder: false,
     };

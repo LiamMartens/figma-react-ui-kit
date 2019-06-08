@@ -6,7 +6,7 @@ import { ITextareaProps } from 'typings/Textarea';
 
 export class Textarea extends React.Component<ITextareaProps> {
     public static defaultProps = {
-        textareaSize: ControlSizes.M,
+        textareaSize: ControlSizes.S
     };
 
     public render() {

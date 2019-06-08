@@ -11,18 +11,12 @@ class App extends React.Component {
                     <SectionTitle>Inputs</SectionTitle>
                     <SectionBlock>
                         <InputLabel>Some label</InputLabel>
-                        <Input className={styles.input} inputSize={ControlSizes.L} type="text" placeholder="Enter your name" />
                         <Input className={styles.input} inputSize={ControlSizes.M} type="text" placeholder="Enter your name" />
                         <Input className={styles.input} inlineLabel="X Pos" inputSize={ControlSizes.S} type="text" />
                         <Input cleanBorder className={styles.input} inlineLabel="X Pos" inputSize={ControlSizes.S} type="text" />
                         <Input cleanBorder className={styles.input} inlineLabel="X Pos" inputSize={ControlSizes.S} type="text" />
                     </SectionBlock>
                     <SectionBlock className={styles.checkboxes}>
-                        <Checkbox
-                            className={styles.checkbox}
-                            checkboxSize={ControlSizes.L}
-                            label="Check me"
-                        />
                         <Checkbox
                             className={styles.checkbox}
                             checkboxSize={ControlSizes.M}
@@ -35,14 +29,6 @@ class App extends React.Component {
                         />
                     </SectionBlock>
                     <SectionBlock className={styles.flex}>
-                        <Select
-                            className={styles.select}
-                            selectSize={ControlSizes.L}
-                            options={[
-                                { label: 'Option 1', value: '1' },
-                                { label: 'Option 2', value: '2' },
-                            ]}
-                        />
                         <Select
                             className={styles.select}
                             selectSize={ControlSizes.M}
@@ -76,21 +62,30 @@ class App extends React.Component {
                 <Section>
                     <SectionTitle>Buttons</SectionTitle>
                     <SectionBlock>
-                        <Button className={styles.button} buttonSize={ControlSizes.L}>Click me!</Button>
                         <Button className={styles.button} buttonSize={ControlSizes.M}>Click me!</Button>
                         <Button className={styles.button} buttonSize={ControlSizes.S}>Click me!</Button>
                     </SectionBlock>
                     <SectionBlock>
-                        <Button className={styles.button} buttonType={ButtonTypes.GHOST} buttonSize={ControlSizes.L}>Click me!</Button>
                         <Button className={styles.button} buttonType={ButtonTypes.GHOST} buttonSize={ControlSizes.M}>Click me!</Button>
                         <Button className={styles.button} buttonType={ButtonTypes.GHOST} buttonSize={ControlSizes.S}>Click me!</Button>
                     </SectionBlock>
                     <SectionBlock className={styles.flex}>
-                        <IconButton buttonSize={ControlSizes.L} className={styles.button}>X</IconButton>
                         <IconButton buttonSize={ControlSizes.M} className={styles.button}>X</IconButton>
                         <IconButton buttonSize={ControlSizes.S} className={styles.button}>X</IconButton>
                     </SectionBlock>
                     <SectionBlock>
+                        <OptionMenu<string>
+                            options={[
+                                {
+                                    label: 'Click me',
+                                    value: 'click-me',
+                                    onClick: (v: string) => {
+                                        alert(v);
+                                    }
+                                }
+                            ]}
+                        />
+
                         <OptionMenu<string>
                             options={[
                                 {

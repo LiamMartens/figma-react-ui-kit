@@ -1,6 +1,6 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
