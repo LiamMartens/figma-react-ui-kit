@@ -45,7 +45,9 @@ export class Select extends React.Component<ISelectProps, IState> {
     }
 
     private handleClick = (event: React.SyntheticEvent<HTMLDivElement>) => {
+        const { stopPropagation } = this.props;
         event.preventDefault();
+        if (stopPropagation) event.stopPropagation();
         if (
             !this.listRef.current
             || !this.listRef.current.contains(event.target as any)
