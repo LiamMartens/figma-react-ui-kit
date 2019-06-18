@@ -71,6 +71,7 @@ class App extends React.Component {
                     <SectionBlock>
                         <Button className={styles.button} buttonSize={ControlSizes.M}>Click me!</Button>
                         <Button className={styles.button} buttonSize={ControlSizes.S}>Click me!</Button>
+                        <Button className={styles.button} buttonType={ButtonTypes.DESTRUCTIVE} buttonSize={ControlSizes.S}>Click me!</Button>
                     </SectionBlock>
                     <SectionBlock>
                         <Button className={styles.button} buttonType={ButtonTypes.GHOST} buttonSize={ControlSizes.M}>Click me!</Button>

@@ -11,7 +11,7 @@
     font-size: 14px;
     height: 2.85em;
     color: $color-light;
-    border-radius: 2px;
+    border-radius: 6px;
 
     &::-moz-focus-inner {
         border: 0;
@@ -53,6 +53,16 @@
 
         &:active {
             border: 2px solid $color-primary;
+        }
+    }
+
+    &.destructive {
+        border-color: rgba($color-secondary, .6);
+        color: $color-secondary;
+        background: transparent;
+
+        &:active {
+            border: 2px solid $color-secondary;
         }
     }
 }
