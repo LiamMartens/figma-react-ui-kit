@@ -23,6 +23,17 @@
     &.l {
         font-size: $font-size-l;
     }
+
+    svg {
+        display: block;
+        margin-top: .2em;
+        height: .8em;
+        width: auto;
+    }
+
+    path {
+        fill: currentColor;
+    }
 }
 
 .input {

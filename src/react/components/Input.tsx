@@ -4,14 +4,31 @@ import classNames from 'classnames';
 import { ControlSizes } from 'constants';
 import { IInputProps } from 'typings/Input';
 
-export class Input extends React.Component<IInputProps> {
+interface IState {
+    inlineLabelSize: number;
+}
+
+export class Input extends React.Component<IInputProps, IState> {
     public static defaultProps = {
         inputSize: ControlSizes.S,
         inlineLabel: '',
         cleanBorder: false,
     };
 
+    public state = {
+        inlineLabelSize: 0,
+    }
+
+    private handleInlineLabelRef = (el?: HTMLSpanElement) => {
+        if (el) {
+            this.setState({
+                inlineLabelSize: el.offsetWidth,
+            });
+        }
+    }
+
     public render() {
+        const { inlineLabelSize } = this.state;
         const {
             cleanBorder,
             inputSize,
@@ -30,7 +47,7 @@ export class Input extends React.Component<IInputProps> {
                     {...rest}
                     style={{
                         ...style,
-                        paddingLeft: !!inlineLabel ? `calc(0.857em + ${inlineLabel.length / 1.5}em)` : '',
+                        paddingLeft: !!inlineLabel ? `calc(0.857em * 2 + ${inlineLabelSize}px)` : '',
                     }}
                     className={classNames({
                         [styles.input]: true,
@@ -40,13 +57,11 @@ export class Input extends React.Component<IInputProps> {
                 />
                 {inlineLabel && (
                     <span
+                        ref={this.handleInlineLabelRef}
                         className={classNames({
                             [styles.inlineLabel]: true,
                             [styles[inputSize]]: true,
                         })}
-                        style={{
-                            
-                        }}
                     >
                         {inlineLabel}
                     </span>
