@@ -1,0 +1,72 @@
+import * as React from 'react';
+import * as styles from 'src/scss/components/Tabs.scss';
+import classNames from 'classnames';
+import { ITabsProps, ITab } from 'typings/Tabs';
+
+interface IState {
+    currentTab: string;
+}
+
+export class Tabs extends React.Component<ITabsProps, IState> {
+    constructor(props: ITabsProps) {
+        super(props);
+
+        const { defaultTab } = props;
+        this.state = {
+            currentTab: defaultTab || '',
+        }
+    }
+
+    private get activeTab() {
+        const { currentTab } = this.state;
+        const { tabs } = this.props;
+        return tabs.find((t, index) => (!currentTab && index === 0) || t.id === currentTab);
+    }
+
+    private handleSwitchTab = (tab: ITab) => {
+        const { onSwitch } = this.props;
+        this.setState({
+            currentTab: tab.id,
+        }, () => {
+            if (onSwitch) onSwitch(tab);
+        });
+    }
+
+    public render() {
+        const { currentTab } = this.state;
+        const { className, tabs, onSwitch, ...rest } = this.props;
+
+        const activeTab = this.activeTab;
+        const ActiveTabComponent = activeTab ? activeTab.view : undefined;
+
+        return (
+            <div
+                {...rest}
+                className={classNames({
+                    [styles.tabs]: true,
+                    [className]: !!className,
+                })}
+            >
+                <ul className={styles.tabsList}>
+                    {tabs.map((tab, index) => (
+                        <li
+                            key={tab.id}
+                            onClick={() => this.handleSwitchTab(tab)}
+                            className={classNames({
+                                [styles.tabEntry]: true,
+                                [styles.active]: (!currentTab && index === 0) || tab.id === currentTab,
+                            })}
+                        >
+                            {tab.label}
+                        </li>
+                    ))}
+                </ul>
+                <div className={styles.view}>
+                    {activeTab && (
+                        <ActiveTabComponent />
+                    )}
+                </div>
+            </div>
+        );
+    }
+}

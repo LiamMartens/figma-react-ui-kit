@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as styles from './index.scss';
-import { Section, SectionBlock, SectionTitle, Input, ControlSizes, InputLabel, Textarea, Button, ButtonTypes, Checkbox, IconButton, Select, OptionMenu } from '../react'
+import { Section, SectionBlock, SectionTitle, Input, ControlSizes, InputLabel, Textarea, Button, ButtonTypes, Checkbox, IconButton, Select, OptionMenu, Tabs } from '../react'
 
 class App extends React.Component {
     public render() {
@@ -107,6 +107,31 @@ class App extends React.Component {
                             ]}
                         />
                     </SectionBlock>
+                </Section>
+                <Section>
+                    <SectionTitle>Tabs</SectionTitle>
+                    <Tabs
+                        onSwitch={console.log}
+                        tabs={[{
+                            id: 'tab-1',
+                            label: 'Tab 1',
+                            view: () => (
+                                <p>Tab 1 Content</p>
+                            )
+                        }, {
+                            id: 'tab-2',
+                            label: 'Tab 2',
+                            view: () => (
+                                <p>Tab 2 Content</p>
+                            )
+                        }, {
+                            id: 'tab-3',
+                            label: 'Tab 3',
+                            view: () => (
+                                <p>Tab 3 Content</p>
+                            )
+                        }]}
+                    />
                 </Section>
             </>
         );

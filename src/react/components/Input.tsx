@@ -12,7 +12,14 @@ export class Input extends React.Component<IInputProps> {
     };
 
     public render() {
-        const { cleanBorder, inputSize, inlineLabel, className, ...rest } = this.props;
+        const {
+            cleanBorder,
+            inputSize,
+            inlineLabel,
+            className,
+            style,
+            ...rest
+        } = this.props;
 
         return (
             <label className={classNames({
@@ -22,6 +29,7 @@ export class Input extends React.Component<IInputProps> {
                 <input
                     {...rest}
                     style={{
+                        ...style,
                         paddingLeft: !!inlineLabel ? `calc(0.857em + ${inlineLabel.length / 1.5}em)` : '',
                     }}
                     className={classNames({

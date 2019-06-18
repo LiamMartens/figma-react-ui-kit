@@ -10,3 +10,4 @@ export * from './components/SectionBlock';
 export * from './components/SectionTitle';
 export * from './components/Select';
 export * from './components/OptionMenu';
+export * from './components/Tabs';

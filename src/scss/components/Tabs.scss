@@ -1,0 +1,39 @@
+.tabs {
+    .tabsList {
+        display: flex;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        border-bottom: 1px solid $color-gray;
+        font-family: $font-family-body;
+        font-size: $font-size-s;
+        line-height: 3.6em;
+    }
+
+    .tabEntry {
+        padding: 0 .72em;
+        font-weight: 400;
+        color: $color-mediumgray;
+
+        &:first-child {
+            padding-left: 1.44em;
+        }
+
+        &:last-child {
+            padding-right: 1.44em;
+        }
+
+        &:hover,
+        &.active {
+            color: $color-dark;
+        }
+
+        &.active {
+            font-weight: 600;
+        }
+    }
+
+    .view {
+
+    }
+}
