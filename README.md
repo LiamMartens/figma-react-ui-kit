@@ -20,6 +20,7 @@ node_modules/figma-ui-kit/dist/style.css
 <Button disabled>I am a disabled button</Button>
 <Button buttonSize={ControlSizes.S} buttonType={ButtonTypes.PRIMARY}>I am a small primary button</Button>
 <Button buttonSize={ControlSizes.M} buttonType={ButtonTypes.GHOST}>I am a medium ghost button</Button>
+<Button buttonSize={ControlSizes.M} buttonType={ButtonTypes.DESTRUCTIVE}>I am a medium ghost button</Button>
 ```
 
 ### IconButton
@@ -31,7 +32,10 @@ node_modules/figma-ui-kit/dist/style.css
 
 ### Input
 ```html
+<InputLabel>Some label</InputLabel>
 <Input type="text" />
+<Input type="text" inlineLabel="Label" />
+<Input type="text" cleanBorder />
 ```
 
 ### Textarea
@@ -81,4 +85,28 @@ node_modules/figma-ui-kit/dist/style.css
         <SectionBlockTitle>This is a title</SectionBlockTitle>
     </SectionBlock>
 </Section>
+```
+
+### OptionMenu
+```jsx
+<Tabs
+    onSwitch={console.log}
+    tabs={[{
+        id: 'tab-1',
+        label: 'Tab 1',
+        view: () => (
+            <p>Tab 1 Content</p>
+        )
+    }, {
+        id: 'tab-2',
+        label: 'Tab 2',
+        view: () => (
+            <p>Tab 2 Content</p>
+        )
+    }, {
+        id: 'tab-3',
+        label: 'Tab 3',
+        view: TabComponent
+    }]}
+/>
 ```
