@@ -13,4 +13,6 @@ export interface IOptionMenuProps<V = any> extends
     stopPropagation?: boolean;
     hangLeft?: boolean;
     options: IOption<V>[];
+    onOpen?: () => void;
+    onClose?: () => void;
 }

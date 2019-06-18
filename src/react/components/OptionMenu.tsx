@@ -25,6 +25,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
     };
 
     private handleWindowClick = (event: Event) => {
+        const { onClose } = this.props;
         const { isOpen } = this.state;
         if (
             isOpen
@@ -33,26 +34,27 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
         ) {
             this.setState({
                 isOpen: false,
-            });
+            }, onClose);
         }
     }
 
     private handleClick = (event: React.SyntheticEvent) => {
-        const { stopPropagation } = this.props;
+        const { stopPropagation, onOpen, onClose } = this.props;
         const { isOpen } = this.state;
         const listRect = this.optionListRef.current.getBoundingClientRect() as DOMRect;
         if (stopPropagation) event.stopPropagation();
         this.setState({
             isOpen: !isOpen,
             hangLeft: window.innerWidth < (listRect.x + listRect.width + 20)
-        });
+        }, isOpen ? onClose : onOpen);
     }
 
     private handleOptionClick = (opt: IOption) => {
+        const { onClose } = this.props;
         opt.onClick(opt.value);
         this.setState({
             isOpen: false,
-        });
+        }, onClose);
     }
 
     public componentDidUpdate(prevProps: IOptionMenuProps, prevState: IState) {
@@ -84,7 +86,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                 ref={this.optionMenuRef}
                 className={classNames({
                     [styles.optionMenu]: true,
-                    [className]: className,
+                    [className]: !!className,
                 })}
             >
                 <IconButton

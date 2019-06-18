@@ -30,11 +30,18 @@ class App extends React.Component {
                     </SectionBlock>
                     <SectionBlock className={styles.flex}>
                         <Select
+                            maxHeight={100}
+                            onOpen={() => console.log('open')}
+                            onClose={() => console.log('close')}
                             className={styles.select}
                             selectSize={ControlSizes.M}
                             options={[
                                 { label: 'Option 1', value: '1' },
                                 { label: 'Option 2', value: '2' },
+                                { label: 'Option 3', value: '3' },
+                                { label: 'Option 4', value: '4' },
+                                { label: 'Option 5', value: '5' },
+                                { label: 'Option 6', value: '6' },
                             ]}
                         />
                         <Select
@@ -74,17 +81,19 @@ class App extends React.Component {
                         <IconButton buttonSize={ControlSizes.S} className={styles.button}>X</IconButton>
                     </SectionBlock>
                     <SectionBlock>
-                        <OptionMenu<string>
-                            options={[
-                                {
-                                    label: 'Click me',
-                                    value: 'click-me',
-                                    onClick: (v: string) => {
-                                        alert(v);
+                        <div style={{ width: '50px' }}>
+                            <OptionMenu<string>
+                                options={[
+                                    {
+                                        label: 'Click me',
+                                        value: 'click-me',
+                                        onClick: (v: string) => {
+                                            alert(v);
+                                        }
                                     }
-                                }
-                            ]}
-                        />
+                                ]}
+                            />
+                        </div>
 
                         <OptionMenu<string>
                             options={[

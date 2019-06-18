@@ -17,7 +17,7 @@ export class Checkbox extends React.Component<ICheckboxProps> {
             <label className={classNames({
                 [styles.checkbox]: true,
                 [styles[checkboxSize]]: true,
-                [className]: className,
+                [className]: !!className,
             })}>
                 <input
                     {...rest}

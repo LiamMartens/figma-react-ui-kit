@@ -45,7 +45,7 @@ export class Select extends React.Component<ISelectProps, IState> {
     }
 
     private handleClick = (event: React.SyntheticEvent<HTMLDivElement>) => {
-        const { stopPropagation } = this.props;
+        const { stopPropagation, onOpen } = this.props;
         event.preventDefault();
         if (stopPropagation) event.stopPropagation();
         if (
@@ -54,26 +54,27 @@ export class Select extends React.Component<ISelectProps, IState> {
         ) {
             this.setState({
                 isOpen: true,
-            });
+            }, onOpen);
         }
     }
 
     private handleOptionClick = (opt: ISelectOption) => {
-        const { value, onChange } = this.props;
+        const { value, onChange, onClose } = this.props;
         const nextState: IState = {
             isOpen: false,
         };
         if (value === undefined) nextState.value = opt.value;
-        this.setState(nextState);
+        this.setState(nextState, onClose);
         if (onChange) onChange(opt);
     }
 
     private handleWindowClick = (event: Event) => {
         const { isOpen } = this.state;
+        const { onClose } = this.props;
         if (isOpen && this.listRef.current && !this.listRef.current.contains(event.target as any)) {
             this.setState({
                 isOpen: false,
-            });
+            }, onClose);
         }
     }
 
@@ -104,6 +105,9 @@ export class Select extends React.Component<ISelectProps, IState> {
             cleanBorder,
             options,
             placeholder,
+            maxHeight,
+            onOpen,
+            onClose,
             onChange,
             ...rest
         } = this.props;
@@ -144,7 +148,15 @@ export class Select extends React.Component<ISelectProps, IState> {
                 </svg>
 
                 {isOpen && (
-                    <ul ref={this.listRef} className={styles.optionsList}>
+                    <ul
+                        ref={this.listRef}
+                        className={styles.optionsList}
+                        style={maxHeight ? {
+                            maxHeight: typeof maxHeight === 'number'
+                                ? `${maxHeight}px`
+                                : maxHeight
+                        } : {}}
+                    >
                         {options.map(o => (
                             <li key={o.value} className={styles.option} onClick={() => this.handleOptionClick(o)}>
                                 {this.selectedOption && this.selectedOption.value === o.value && (
