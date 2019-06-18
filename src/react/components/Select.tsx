@@ -109,6 +109,7 @@ export class Select extends React.Component<ISelectProps, IState> {
             onOpen,
             onClose,
             onChange,
+            extraRound,
             ...rest
         } = this.props;
         const { isOpen } = this.state;
@@ -119,6 +120,7 @@ export class Select extends React.Component<ISelectProps, IState> {
                 onClick={this.handleClick}
                 className={classNames({
                     [styles.select]: true,
+                    [styles.extraRound]: !!extraRound,
                     [styles[selectSize]]: true,
                     [styles.focus]: isOpen,
                     [styles.cleanBorder]: cleanBorder,

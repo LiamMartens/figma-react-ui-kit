@@ -6,4 +6,5 @@ export interface IInputProps extends
     inputSize?: ControlSizes;
     inlineLabel?: string | React.ReactNode;
     cleanBorder?: boolean;
+    extraRound?: boolean;
 }

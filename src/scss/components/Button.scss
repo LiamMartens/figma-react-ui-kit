@@ -11,7 +11,11 @@
     font-size: 14px;
     height: 2.85em;
     color: $color-light;
-    border-radius: 6px;
+    border-radius: 3px;
+
+    &.extraRound {
+        border-radius: 6px;
+    }
 
     &::-moz-focus-inner {
         border: 0;

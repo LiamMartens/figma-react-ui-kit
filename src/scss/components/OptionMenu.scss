@@ -1,6 +1,12 @@
 .optionMenu {
     position: relative;
     display: inline-block;
+
+    &.extraRound {
+        .optionList {
+            border-radius: 6px;
+        }
+    }
 }
 
 .optionList {
@@ -18,7 +24,7 @@
     color: $color-light;
     font-family: $font-family-body;
     user-select: none;
-    border-radius: 2px;
+    border-radius: 3px;
     box-shadow: 0 0 5px rgba($color-dark, .1);
 
     &.isOpen {

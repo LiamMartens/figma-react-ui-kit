@@ -10,13 +10,14 @@ export class Textarea extends React.Component<ITextareaProps> {
     };
 
     public render() {
-        const { children, textareaSize, className, ...rest } = this.props;
+        const { children, textareaSize, className, extraRound, ...rest } = this.props;
 
         return (
             <textarea
                 {...rest}
                 className={classNames({
                     [styles.textarea]: true,
+                    [styles.extraRound]: !!extraRound,
                     [styles[textareaSize]]: true,
                     [className]: !!className
                 })}

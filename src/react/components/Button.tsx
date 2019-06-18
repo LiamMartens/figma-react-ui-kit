@@ -10,14 +10,16 @@ export class Button extends React.Component<IButtonProps> {
     public static defaultProps = {
         buttonSize: ControlSizes.S,
         buttonType: ButtonTypes.PRIMARY,
+        extraRound: false,
     }
 
     public render() {
-        const { children, buttonSize, buttonType, className, ...rest } = this.props as PropsWithDefaults;
+        const { children, buttonSize, buttonType, extraRound, className, ...rest } = this.props as PropsWithDefaults;
 
         return (
             <button {...rest} className={classNames({
                 [styles.button]: true,
+                [styles.extraRound]: !!extraRound,
                 [styles[buttonSize]]: true,
                 [styles[buttonType]]: true,
                 [className]: !!className,

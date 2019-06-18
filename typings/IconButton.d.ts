@@ -5,4 +5,5 @@ export interface IIconButtonProps extends
     React.ButtonHTMLAttributes<HTMLButtonElement> {
     buttonSize?: ControlSizes;
     on?: boolean;
+    extraRound?: boolean;
 }

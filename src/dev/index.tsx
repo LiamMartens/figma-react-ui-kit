@@ -12,7 +12,7 @@ class App extends React.Component {
                     <SectionBlock>
                         <InputLabel>Some label</InputLabel>
                         <Input className={styles.input} inputSize={ControlSizes.M} type="text" placeholder="Enter your name" />
-                        <Input className={styles.input} inlineLabel="X Pos" inputSize={ControlSizes.S} type="text" />
+                        <Input extraRound className={styles.input} inlineLabel="X Pos" inputSize={ControlSizes.S} type="text" />
                         <Input cleanBorder className={styles.input} inlineLabel="X Pos" inputSize={ControlSizes.S} type="text" />
                         <Input cleanBorder className={styles.input} inlineLabel="Long label" inputSize={ControlSizes.S} type="text" />
                         <Input cleanBorder className={styles.input} inlineLabel={(
@@ -75,7 +75,7 @@ class App extends React.Component {
                     <SectionTitle>Buttons</SectionTitle>
                     <SectionBlock>
                         <Button className={styles.button} buttonSize={ControlSizes.M}>Click me!</Button>
-                        <Button className={styles.button} buttonSize={ControlSizes.S}>Click me!</Button>
+                        <Button extraRound className={styles.button} buttonSize={ControlSizes.S}>Click me!</Button>
                         <Button className={styles.button} buttonType={ButtonTypes.DESTRUCTIVE} buttonSize={ControlSizes.S}>Click me!</Button>
                     </SectionBlock>
                     <SectionBlock>

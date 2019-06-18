@@ -11,13 +11,14 @@ export class IconButton extends React.Component<IIconButtonProps> {
     };
 
     public render() {
-        const { children, on, buttonSize, className, ...rest } = this.props;
+        const { children, on, buttonSize, extraRound, className, ...rest } = this.props;
 
         return (
             <button
                 {...rest}
                 className={classNames({
                     [styles.iconButton]: true,
+                    [styles.extraRound]: !!extraRound,
                     [styles.on]: on,
                     [styles[buttonSize]]: true,
                     [className]: !!className

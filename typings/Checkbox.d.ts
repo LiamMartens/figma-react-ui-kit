@@ -5,4 +5,5 @@ export interface ICheckboxProps extends
     React.InputHTMLAttributes<HTMLInputElement> {
     checkboxSize?: ControlSizes;
     label?: string;
+    extraRound?: boolean;
 }

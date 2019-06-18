@@ -9,8 +9,14 @@
     height: 2.85em;
     padding: 0 0.857em;
     color: $color-darkgray;
-    border-radius: 2px;
+    border-radius: 3px;
     user-select: none;
+
+    &.extraRound {
+        &, .optionsList {
+            border-radius: 6px;
+        }
+    }
 
     &.cleanBorder {
         border: 1px solid transparent;
@@ -93,7 +99,7 @@
         list-style: none;
         background: $color-darkgray;
         color: $color-light;
-        border-radius: 2px;
+        border-radius: 3px;
         box-shadow: 0 0 5px rgba($color-dark, .1);
 
         .option {

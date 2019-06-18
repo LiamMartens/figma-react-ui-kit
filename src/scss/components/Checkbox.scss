@@ -4,6 +4,12 @@
     user-select: none;
     -moz-user-select: none;
 
+    &.extraRound {
+        .label::before {
+            border-radius: 6px;
+        }
+    }
+
     &.s {
         font-size: $font-size-s;
     }
@@ -32,7 +38,7 @@
             width: 1.09em;
             height: 1.09em;
             content: '';
-            border-radius: 2px;
+            border-radius: 3px;
             border: 1px solid rgba($color-dark,.3);
             background: white;
             background-position: center;

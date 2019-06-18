@@ -10,7 +10,11 @@
     font-size: 14px;
     min-height: 2.85em;
     color: $color-darkgray;
-    border-radius: 2px;
+    border-radius: 3px;
+
+    &.extraRound {
+        border-radius: 6px;
+    }
 
     &::placeholder {
         color: $color-mediumgray;

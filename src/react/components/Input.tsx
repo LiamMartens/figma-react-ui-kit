@@ -13,6 +13,7 @@ export class Input extends React.Component<IInputProps, IState> {
         inputSize: ControlSizes.S,
         inlineLabel: '',
         cleanBorder: false,
+        extraRound: false,
     };
 
     public state = {
@@ -35,6 +36,7 @@ export class Input extends React.Component<IInputProps, IState> {
             inlineLabel,
             className,
             style,
+            extraRound,
             ...rest
         } = this.props;
 
@@ -52,6 +54,7 @@ export class Input extends React.Component<IInputProps, IState> {
                     className={classNames({
                         [styles.input]: true,
                         [styles.cleanBorder]: cleanBorder,
+                        [styles.extraRound]: !!extraRound,
                         [styles[inputSize]]: true,
                     })}
                 />

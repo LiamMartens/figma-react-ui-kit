@@ -12,6 +12,7 @@ export interface IOptionMenuProps<V = any> extends
     optionMenuSize?: ControlSizes;
     stopPropagation?: boolean;
     hangLeft?: boolean;
+    extraRound?: boolean;
     options: IOption<V>[];
     onOpen?: () => void;
     onClose?: () => void;
