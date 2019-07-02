@@ -19,6 +19,7 @@ export interface ISelectProps extends
     cleanBorder?: boolean;
     stopPropagation?: boolean;
     maxHeight?: string | number;
+    optionListWidth?: string | number;
     extraRound?: boolean;
     options: ISelectOption[];
     onOpen?: () => void;

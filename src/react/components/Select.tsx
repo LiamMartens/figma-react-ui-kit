@@ -106,6 +106,7 @@ export class Select extends React.Component<ISelectProps, IState> {
             options,
             placeholder,
             maxHeight,
+            optionListWidth,
             onOpen,
             onClose,
             onChange,
@@ -153,11 +154,18 @@ export class Select extends React.Component<ISelectProps, IState> {
                     <ul
                         ref={this.listRef}
                         className={styles.optionsList}
-                        style={maxHeight ? {
-                            maxHeight: typeof maxHeight === 'number'
-                                ? `${maxHeight}px`
-                                : maxHeight
-                        } : {}}
+                        style={{
+                            ...(maxHeight ? {
+                                maxHeight: typeof maxHeight === 'number'
+                                    ? `${maxHeight}px`
+                                    : maxHeight
+                            } : {}),
+                            ...(optionListWidth ? {
+                                width: typeof optionListWidth === 'number'
+                                    ? `${optionListWidth}px`
+                                    : optionListWidth
+                            } : {})
+                        }}
                     >
                         {options.map(o => (
                             <li key={o.value} className={styles.option} onClick={() => this.handleOptionClick(o)}>
