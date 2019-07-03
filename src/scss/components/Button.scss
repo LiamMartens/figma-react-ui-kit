@@ -25,6 +25,10 @@
         padding: 0 calc(1.07em - 1px);
     }
 
+    &:disabled {
+        pointer-events: none;
+    }
+
     &.s {
         font-size: $font-size-s;
     }
@@ -58,6 +62,10 @@
         &:active {
             border: 2px solid $color-primary;
         }
+
+        &:disabled {
+            opacity: .4;
+        }
     }
 
     &.destructive {
@@ -67,6 +75,10 @@
 
         &:active {
             border: 2px solid $color-secondary;
+        }
+
+        &:disabled {
+            opacity: .4;
         }
     }
 }
