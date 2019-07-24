@@ -11,6 +11,9 @@
     }
 
     .tabEntry {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
         padding: 0 .72em;
         font-weight: 400;
         color: $color-mediumgray;
@@ -27,10 +30,22 @@
         &:hover,
         &.active {
             color: $color-dark;
+
+            svg {
+                opacity: 1;
+            }
         }
 
         &.active {
             font-weight: 600;
+        }
+
+        svg {
+            display: block;
+            margin-right: .5em;
+            height: 1.1em;
+            width: auto;
+            opacity: .3;
         }
     }
 

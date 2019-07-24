@@ -48,18 +48,22 @@ export class Tabs extends React.Component<ITabsProps, IState> {
                 })}
             >
                 <ul className={styles.tabsList}>
-                    {tabs.map((tab, index) => (
-                        <li
-                            key={tab.id}
-                            onClick={() => this.handleSwitchTab(tab)}
-                            className={classNames({
-                                [styles.tabEntry]: true,
-                                [styles.active]: (!currentTab && index === 0) || tab.id === currentTab,
-                            })}
-                        >
-                            {tab.label}
-                        </li>
-                    ))}
+                    {tabs.map((tab, index) => {
+                        const Icon = tab.icon;
+                        return (
+                            <li
+                                key={tab.id}
+                                onClick={() => this.handleSwitchTab(tab)}
+                                className={classNames({
+                                    [styles.tabEntry]: true,
+                                    [styles.active]: (!currentTab && index === 0) || tab.id === currentTab,
+                                })}
+                            >
+                                {Icon && <Icon />}
+                                {tab.label}
+                            </li>
+                        );
+                    })}
                 </ul>
                 <div className={styles.view}>
                     {activeTab && (

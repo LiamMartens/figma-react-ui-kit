@@ -4,6 +4,7 @@ export interface ITab {
     id: string;
     label: string;
     view: React.ComponentType<{}> | React.FunctionComponent<{}>;
+    icon?: React.ReactType;
 }
 
 export interface ITabsProps extends React.HTMLAttributes<HTMLDivElement> {
