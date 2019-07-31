@@ -87,7 +87,7 @@ node_modules/figma-ui-kit/dist/style.css
 </Section>
 ```
 
-### OptionMenu
+### Tabs
 ```jsx
 <Tabs
     onSwitch={console.log}
