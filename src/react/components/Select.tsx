@@ -3,13 +3,21 @@ import * as styles from 'src/scss/components/Select.scss';
 import classNames from 'classnames';
 import { ISelectProps, ISelectOption } from 'typings/Select';
 import { ControlSizes } from 'constants';
+import { Portal } from 'react-portal';
 
 interface IState {
     isOpen: boolean;
     value?: string;
+    boundingClientRect?: {
+        top: number;
+        left: number;
+        width: number;
+        height: number;
+    };
 }
 
 export class Select extends React.Component<ISelectProps, IState> {
+    public SelectRef = React.createRef<HTMLDivElement>();
     private listRef = React.createRef<HTMLUListElement>();
 
     public static defaultProps = {
@@ -45,7 +53,7 @@ export class Select extends React.Component<ISelectProps, IState> {
     }
 
     private handleClick = (event: React.SyntheticEvent<HTMLDivElement>) => {
-        const { stopPropagation, onOpen } = this.props;
+        const { stopPropagation, portal, onOpen } = this.props;
         event.preventDefault();
         if (stopPropagation) event.stopPropagation();
         if (
@@ -54,6 +62,7 @@ export class Select extends React.Component<ISelectProps, IState> {
         ) {
             this.setState({
                 isOpen: true,
+                boundingClientRect: portal ? event.currentTarget.getBoundingClientRect() : undefined,
             }, onOpen);
         }
     }
@@ -76,6 +85,80 @@ export class Select extends React.Component<ISelectProps, IState> {
                 isOpen: false,
             }, onClose);
         }
+    }
+
+    private handleWindowResize = (event: Event) => {
+        const { onClose } = this.props;
+        const { isOpen } = this.state;
+        if (isOpen) {
+            this.setState({
+                isOpen: false,
+            }, onClose);
+        }
+    }
+
+    private renderOptionsList = () => {
+        const {
+            maxHeight,
+            options,
+            optionListWidth,
+            optionListClassName = '',
+            selectSize,
+            portal,
+        } = this.props;
+        const { boundingClientRect } = this.state;
+        const s_top = document.body.scrollTop || document.documentElement.scrollTop;
+        const s_left = document.body.scrollLeft || document.documentElement.scrollLeft;
+
+        return (
+            <ul
+                ref={this.listRef}
+                className={classNames({
+                    [styles.optionsList]: true,
+                    [styles.portaled]: !!portal,
+                    [styles[selectSize]]: true,
+                    [optionListClassName]: !!optionListClassName,
+                })}
+                style={{
+                    ...(maxHeight ? {
+                        maxHeight: typeof maxHeight === 'number'
+                            ? `${maxHeight}px`
+                            : maxHeight
+                    } : {}),
+                    ...(optionListWidth ? {
+                        width: typeof optionListWidth === 'number'
+                            ? `${optionListWidth}px`
+                            : optionListWidth
+                    } : {}),
+                    ...(portal ? {
+                        top: `${s_top + boundingClientRect.top}px`,
+                        left: `${s_left + boundingClientRect.left}px`,
+                        minWidth: `${boundingClientRect.width}px`,
+                    } : {}),
+                }}
+            >
+                {options.map(o => (
+                    <li key={o.value} className={styles.option} onClick={() => this.handleOptionClick(o)}>
+                        {this.selectedOption && this.selectedOption.value === o.value && (
+                            <svg
+                                className={styles.checkmark}
+                                width="16"
+                                height="16"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path d="M13.207 5.207L7 11.414 3.292 7.707l1.415-1.414L7 8.586l4.793-4.793 1.414 1.414z" />
+                            </svg>
+                        )}
+                        <span className={styles.label}>{o.label}</span>
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
+    public componentDidMount() {
+        window.addEventListener('resize', this.handleWindowResize);
+        window.removeEventListener('resize', this.handleWindowResize);
     }
 
     public componentDidUpdate(prevProps: ISelectProps, prevState: IState) {
@@ -111,6 +194,8 @@ export class Select extends React.Component<ISelectProps, IState> {
             onClose,
             onChange,
             extraRound,
+            stopPropagation,
+            portal,
             ...rest
         } = this.props;
         const { isOpen } = this.state;
@@ -118,6 +203,7 @@ export class Select extends React.Component<ISelectProps, IState> {
         return (
             <div
                 {...rest}
+                ref={this.SelectRef}
                 onClick={this.handleClick}
                 className={classNames({
                     [styles.select]: true,
@@ -151,38 +237,13 @@ export class Select extends React.Component<ISelectProps, IState> {
                 </svg>
 
                 {isOpen && (
-                    <ul
-                        ref={this.listRef}
-                        className={styles.optionsList}
-                        style={{
-                            ...(maxHeight ? {
-                                maxHeight: typeof maxHeight === 'number'
-                                    ? `${maxHeight}px`
-                                    : maxHeight
-                            } : {}),
-                            ...(optionListWidth ? {
-                                width: typeof optionListWidth === 'number'
-                                    ? `${optionListWidth}px`
-                                    : optionListWidth
-                            } : {})
-                        }}
-                    >
-                        {options.map(o => (
-                            <li key={o.value} className={styles.option} onClick={() => this.handleOptionClick(o)}>
-                                {this.selectedOption && this.selectedOption.value === o.value && (
-                                    <svg
-                                        className={styles.checkmark}
-                                        width="16"
-                                        height="16"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path d="M13.207 5.207L7 11.414 3.292 7.707l1.415-1.414L7 8.586l4.793-4.793 1.414 1.414z" />
-                                    </svg>
-                                )}
-                                <span className={styles.label}>{o.label}</span>
-                            </li>
-                        ))}
-                    </ul>
+                    portal ? (
+                        <Portal node={portal === true ? document.body : portal}>
+                            {this.renderOptionsList()}
+                        </Portal>
+                    ) : (
+                        this.renderOptionsList()
+                    )
                 )}
             </div>
         );

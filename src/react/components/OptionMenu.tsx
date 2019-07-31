@@ -4,19 +4,26 @@ import classNames from 'classnames';
 import { IOptionMenuProps, IOption } from 'typings/OptionMenu';
 import { IconButton } from './IconButton';
 import { ControlSizes } from 'constants';
+import { Portal } from 'react-portal';
 
 interface IState {
     isOpen: boolean;
     hangLeft: boolean;
+    boundingClientRect?: {
+        top: number;
+        left: number;
+        width: number;
+        height: number;
+    };
 }
 
 export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IState> {
-    private optionMenuRef = React.createRef<HTMLDivElement>();
+    public OptionMenuRef = React.createRef<HTMLDivElement>();
     private optionListRef = React.createRef<HTMLUListElement>();
 
     public static defaultProps = {
         optionMenuSize: ControlSizes.S,
-        stopPropagation: true,
+        stopPropagation: false,
     }
 
     public state = {
@@ -39,13 +46,17 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
     }
 
     private handleClick = (event: React.SyntheticEvent) => {
-        const { stopPropagation, onOpen, onClose } = this.props;
+        const { stopPropagation, onOpen, portal, onClose } = this.props;
         const { isOpen } = this.state;
-        const listRect = this.optionListRef.current.getBoundingClientRect() as DOMRect;
-        if (stopPropagation) event.stopPropagation();
+        const rect = this.OptionMenuRef.current.getBoundingClientRect() as DOMRect;
+        if (stopPropagation) {
+            event.stopPropagation();
+            window.dispatchEvent(new Event('click'));
+        }
         this.setState({
             isOpen: !isOpen,
-            hangLeft: window.innerWidth < (listRect.x + listRect.width + 20)
+            hangLeft: window.innerWidth < (rect.x + rect.width + 20),
+            boundingClientRect: portal ? rect : undefined,
         }, isOpen ? onClose : onOpen);
     }
 
@@ -55,6 +66,57 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
         this.setState({
             isOpen: false,
         }, onClose);
+    }
+
+    private renderOptionsList = () => {
+        const { options, portal, stopPropagation, hangLeft: hangLeftOverride, optionMenuSize, optionListClassName = '' } = this.props;
+        const { isOpen, hangLeft, boundingClientRect } = this.state as IState;
+        const s_top = document.body.scrollTop || document.documentElement.scrollTop;
+        const s_left = document.body.scrollLeft || document.documentElement.scrollLeft;
+
+        return (
+            <ul
+                ref={this.optionListRef}
+                className={classNames({
+                    [styles.optionList]: true,
+                    [styles.isOpen]: isOpen,
+                    [styles.hangLeft]: (hangLeftOverride !== undefined && hangLeftOverride !== null) ? hangLeftOverride : hangLeft,
+                    [styles[optionMenuSize]]: true,
+                    [optionListClassName]: !!optionListClassName,
+                })}
+                style={{
+                    ...(portal ? {
+                        top: `${s_top + boundingClientRect.top}px`,
+                        left: `${s_left + boundingClientRect.left}px`,
+                        minWidth: `${boundingClientRect.width}px`,
+                    } : {}),
+                }}
+            >
+                {options.map(o => (
+                    <li
+                        key={o.label}
+                        className={styles.option}
+                        onClick={(event: React.SyntheticEvent<HTMLLIElement>) => {
+                            if (stopPropagation) {
+                                event.stopPropagation();
+                            }
+                            this.handleOptionClick(o);
+                        }}
+                    >
+                        {o.label}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
+    private handleWindowResize = (event: Event) => {
+        const { isOpen } = this.state;
+        if (isOpen) {
+            this.setState({
+                isOpen: false,
+            });
+        }
     }
 
     public componentDidUpdate(prevProps: IOptionMenuProps, prevState: IState) {
@@ -72,18 +134,23 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
         }
     }
 
+    public componentDidMount() {
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
     public componentWillUnmount() {
         window.removeEventListener('click', this.handleWindowClick);
+        window.removeEventListener('resize', this.handleWindowResize);
     }
 
     public render() {
-        const { isOpen, hangLeft } = this.state;
-        const { optionMenuSize, options, className, stopPropagation, extraRound, hangLeft: hangLeftOverride, ...rest } = this.props;
+        const { isOpen } = this.state;
+        const { portal, optionMenuSize, options, className, stopPropagation, extraRound, hangLeft: hangLeftOverride, ...rest } = this.props;
 
         return (
             <div
                 {...rest}
-                ref={this.optionMenuRef}
+                ref={this.OptionMenuRef}
                 className={classNames({
                     [styles.optionMenu]: true,
                     [styles.extraRound]: !!extraRound,
@@ -100,28 +167,15 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                         <path fillRule="evenodd" clipRule="evenodd" d="M3 7.5C3 8.328 2.328 9 1.5 9C0.672 9 0 8.328 0 7.5C0 6.672 0.672 6 1.5 6C2.328 6 3 6.672 3 7.5ZM9 7.5C9 8.328 8.328 9 7.5 9C6.672 9 6 8.328 6 7.5C6 6.672 6.672 6 7.5 6C8.328 6 9 6.672 9 7.5ZM13.5 9C14.328 9 15 8.328 15 7.5C15 6.672 14.328 6 13.5 6C12.672 6 12 6.672 12 7.5C12 8.328 12.672 9 13.5 9Z" />
                     </svg>
                 </IconButton>
-                <ul
-                    ref={this.optionListRef}
-                    className={classNames({
-                        [styles.optionList]: true,
-                        [styles.isOpen]: isOpen,
-                        [styles.hangLeft]: (hangLeftOverride !== undefined && hangLeftOverride !== null) ? hangLeftOverride : hangLeft,
-                        [styles[optionMenuSize]]: true,
-                    })}
-                >
-                    {options.map(o => (
-                        <li
-                            key={o.label}
-                            className={styles.option}
-                            onClick={(event: React.SyntheticEvent<HTMLLIElement>) => {
-                                if (stopPropagation) event.stopPropagation();
-                                this.handleOptionClick(o);
-                            }}
-                        >
-                            {o.label}
-                        </li>
-                    ))}
-                </ul>
+                {isOpen && (
+                    portal ? (
+                        <Portal node={portal === true ? document.body : portal}>
+                            {this.renderOptionsList()}
+                        </Portal>
+                    ) : (
+                        this.renderOptionsList()
+                    )
+                )}
             </div>
         );
     }

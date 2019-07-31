@@ -17,7 +17,7 @@ class App extends React.Component {
                         <Input cleanBorder className={styles.input} inlineLabel="Long label" inputSize={ControlSizes.S} type="text" />
                         <Input cleanBorder className={styles.input} inlineLabel={(
                             <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 0V8H8V7H5C5 4.79 3.21 3 1 3V0H0ZM1 4V7H4C4 5.343 2.657 4 1 4Z" fill="black"/>
+                                <path fillRule="evenodd" clipRule="evenodd" d="M0 0V8H8V7H5C5 4.79 3.21 3 1 3V0H0ZM1 4V7H4C4 5.343 2.657 4 1 4Z" fill="black"/>
                             </svg>
                         )} inputSize={ControlSizes.S} type="text" />
                     </SectionBlock>
@@ -66,6 +66,15 @@ class App extends React.Component {
                                 { label: 'Option 2', value: '2' },
                             ]}
                         />
+                        <Select
+                            portal
+                            className={styles.select}
+                            selectSize={ControlSizes.S}
+                            options={[
+                                { label: 'Option 1', value: '1' },
+                                { label: 'Option 2', value: '2' },
+                            ]}
+                        />
                     </SectionBlock>
                     <SectionBlock>
                         <Textarea className={styles.textarea}></Textarea>
@@ -102,6 +111,19 @@ class App extends React.Component {
                         </div>
 
                         <OptionMenu<string>
+                            options={[
+                                {
+                                    label: 'Click me',
+                                    value: 'click-me',
+                                    onClick: (v: string) => {
+                                        alert(v);
+                                    }
+                                }
+                            ]}
+                        />
+
+                        <OptionMenu<string>
+                            portal
                             options={[
                                 {
                                     label: 'Click me',

@@ -28,16 +28,7 @@ module.exports = {
         }))
     },
     ...(isProduction && ({
-        externals: [
-            {
-                react: {
-                    root: 'React',
-                    amd: 'react',
-                    commonjs: 'react',
-                    commonjs2: 'react',
-                },
-            }
-        ],
+        externals: ['react', 'react-dom', 'react-portal'],
     })),
     module: {
         rules: [

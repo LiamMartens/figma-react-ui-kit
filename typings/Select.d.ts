@@ -18,8 +18,10 @@ export interface ISelectProps extends
     selectSize?: ControlSizes;
     cleanBorder?: boolean;
     stopPropagation?: boolean;
+    portal?: HTMLElement | true;
     maxHeight?: string | number;
     optionListWidth?: string | number;
+    optionListClassName?: string;
     extraRound?: boolean;
     options: ISelectOption[];
     onOpen?: () => void;

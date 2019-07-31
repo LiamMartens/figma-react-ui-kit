@@ -1,3 +1,18 @@
+.select,
+.optionsList {
+    &.s {
+        font-size: $font-size-s;
+    }
+
+    &.m {
+        font-size: $font-size-m;
+    }
+
+    &.l {
+        font-size: $font-size-l;
+    }
+}
+
 .select {
     position: relative;
     box-sizing: border-box;
@@ -41,18 +56,6 @@
         padding: 0 calc(0.857em - 1px);
     }
 
-    &.s {
-        font-size: $font-size-s;
-    }
-
-    &.m {
-        font-size: $font-size-m;
-    }
-
-    &.l {
-        font-size: $font-size-l;
-    }
-
     .input {
         display: none;
     }
@@ -86,40 +89,44 @@
         margin-left: auto;
         fill: $color-darkgray;
     }
+}
 
-    .optionsList {
-        position: absolute;
+.optionsList {
+    position: absolute;
+    display: block;
+    overflow: auto;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    padding: .4em 0;
+    margin: 0;
+    list-style: none;
+    background: $color-darkgray;
+    color: $color-light;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba($color-dark, .1);
+
+    &.portaled {
+        right: auto;
+    }
+
+    .option {
+        position: relative;
         display: block;
-        overflow: auto;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        padding: .4em 0;
-        margin: 0;
-        list-style: none;
-        background: $color-darkgray;
-        color: $color-light;
-        border-radius: 3px;
-        box-shadow: 0 0 5px rgba($color-dark, .1);
+        padding: .5em 1em .45em 3em;
+        font-size: inherit;
+        font-family: $font-family-body;
 
-        .option {
-            position: relative;
-            display: block;
-            padding: .5em 1em .45em 3em;
-            font-size: inherit;
-            font-family: $font-family-body;
+        &:hover {
+            background: $color-primary;
+        }
 
-            &:hover {
-                background: $color-primary;
-            }
-
-            .checkmark {
-                position: absolute;
-                top: 50%;
-                left: .5em;
-                fill: $color-light;
-                transform: translateY(-48%);
-            }
+        .checkmark {
+            position: absolute;
+            top: 50%;
+            left: .5em;
+            fill: $color-light;
+            transform: translateY(-48%);
         }
     }
 }

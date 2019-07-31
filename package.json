@@ -1,6 +1,6 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.0.29",
+  "version": "0.1.0",
   "description": "Contains some Figma styled components",
   "main": "dist/react.js",
   "scripts": {
@@ -37,12 +37,12 @@
     "webpack-fix-style-only-entries": "^0.2.1"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "react-portal": "^4.2.0"
+    "classnames": "^2.2.6"
   },
   "peerDependencies": {
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-portal": "^4.2.0"
   },
   "types": "index.d.ts",
   "files": [
