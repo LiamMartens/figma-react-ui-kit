@@ -13,6 +13,10 @@ export interface IOptionMenuProps<V = any> extends
     stopPropagation?: boolean;
     portal?: HTMLElement | true;
     portalScrollParent?: HTMLElement;
+    portalScroll?: {
+        top: number | (() => number);
+        left: number | (() => number);
+    };
     hangLeft?: boolean;
     extraRound?: boolean;
     options: IOption<V>[];

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ControlSizes } from 'constants';
+import { number } from 'prop-types';
 
 export interface ISelectOption {
     value: string;
@@ -20,6 +21,10 @@ export interface ISelectProps extends
     stopPropagation?: boolean;
     portal?: HTMLElement | true;
     portalScrollParent?: HTMLElement;
+    portalScroll?: {
+        top: number | (() => number);
+        left: number | (() => number);
+    };
     maxHeight?: string | number;
     optionListWidth?: string | number;
     optionListClassName?: string;
