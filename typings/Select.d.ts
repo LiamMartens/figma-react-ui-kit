@@ -14,6 +14,7 @@ export interface ISelectProps extends
         React.HTMLAttributes<HTMLDivElement>,
         Exclude<keyof React.HTMLAttributes<HTMLDivElement>, 'onChange'>
     > {
+    open?: boolean;
     value?: string;
     defaultValue?: string;
     selectSize?: ControlSizes;

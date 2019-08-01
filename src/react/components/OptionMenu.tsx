@@ -31,11 +31,19 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
         hangLeft: false,
     };
 
+    private get isOpen() {
+        const { open } = this.props;
+        const { isOpen } = this.state;
+        if (typeof open === 'boolean') {
+            return open;
+        }
+        return isOpen;
+    }
+
     private handleWindowClick = (event: Event) => {
         const { onClose } = this.props;
-        const { isOpen } = this.state;
         if (
-            isOpen
+            this.isOpen
             && this.optionListRef.current
             && !this.optionListRef.current.contains(event.target as any)
         ) {
@@ -47,17 +55,16 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
 
     private handleClick = (event: React.SyntheticEvent) => {
         const { stopPropagation, onOpen, portal, onClose } = this.props;
-        const { isOpen } = this.state;
         const rect = this.OptionMenuRef.current.getBoundingClientRect() as DOMRect;
         if (stopPropagation) {
             event.stopPropagation();
             window.dispatchEvent(new Event('click'));
         }
         this.setState({
-            isOpen: !isOpen,
+            isOpen: !this.isOpen,
             hangLeft: window.innerWidth < (rect.x + rect.width + 20),
             boundingClientRect: portal ? rect : undefined,
-        }, isOpen ? onClose : onOpen);
+        }, this.isOpen ? onClose : onOpen);
     }
 
     private handleOptionClick = (opt: IOption) => {
@@ -70,7 +77,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
 
     private renderOptionsList = () => {
         const { options, portal, portalScrollParent, portalScroll, stopPropagation, hangLeft: hangLeftOverride, optionMenuSize, optionListClassName = '' } = this.props;
-        const { isOpen, hangLeft, boundingClientRect } = this.state as IState;
+        const { hangLeft, boundingClientRect } = this.state as IState;
         const s_top = portalScroll
             ? (typeof portalScroll.top === 'number' ? portalScroll.top : portalScroll.top())
             : (portalScrollParent ? portalScrollParent.scrollTop : document.body.scrollTop || document.documentElement.scrollTop);
@@ -83,7 +90,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                 ref={this.optionListRef}
                 className={classNames({
                     [styles.optionList]: true,
-                    [styles.isOpen]: isOpen,
+                    [styles.isOpen]: this.isOpen,
                     [styles.hangLeft]: (hangLeftOverride !== undefined && hangLeftOverride !== null) ? hangLeftOverride : hangLeft,
                     [styles[optionMenuSize]]: true,
                     [optionListClassName]: !!optionListClassName,
@@ -115,8 +122,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
     }
 
     private handleWindowResize = (event: Event) => {
-        const { isOpen } = this.state;
-        if (isOpen) {
+        if (this.isOpen) {
             this.setState({
                 isOpen: false,
             });
@@ -125,8 +131,9 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
 
     public componentDidUpdate(prevProps: IOptionMenuProps, prevState: IState) {
         const { isOpen } = this.state;
-        if (isOpen !== prevState.isOpen) {
-            if (isOpen) {
+        const { open } = this.props;
+        if (typeof open === 'boolean' ? open !== prevProps.open : isOpen !== prevState.isOpen) {
+            if (this.isOpen) {
                 window.requestAnimationFrame(() => {
                     window.addEventListener('click', this.handleWindowClick);
                 });
@@ -148,8 +155,21 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
     }
 
     public render() {
-        const { isOpen } = this.state;
-        const { portal, optionMenuSize, options, className, stopPropagation, extraRound, hangLeft: hangLeftOverride, ...rest } = this.props;
+        const {
+            portal,
+            portalScroll,
+            portalScrollParent,
+            optionMenuSize,
+            options,
+            className,
+            stopPropagation,
+            extraRound,
+            hangLeft: hangLeftOverride,
+            open,
+            onOpen,
+            onClose,
+            ...rest
+        } = this.props;
 
         return (
             <div
@@ -162,7 +182,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                 })}
             >
                 <IconButton
-                    on={isOpen}
+                    on={this.isOpen}
                     extraRound={extraRound}
                     buttonSize={optionMenuSize}
                     onClick={this.handleClick}
@@ -171,7 +191,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
                         <path fillRule="evenodd" clipRule="evenodd" d="M3 7.5C3 8.328 2.328 9 1.5 9C0.672 9 0 8.328 0 7.5C0 6.672 0.672 6 1.5 6C2.328 6 3 6.672 3 7.5ZM9 7.5C9 8.328 8.328 9 7.5 9C6.672 9 6 8.328 6 7.5C6 6.672 6.672 6 7.5 6C8.328 6 9 6.672 9 7.5ZM13.5 9C14.328 9 15 8.328 15 7.5C15 6.672 14.328 6 13.5 6C12.672 6 12 6.672 12 7.5C12 8.328 12.672 9 13.5 9Z" />
                     </svg>
                 </IconButton>
-                {isOpen && (
+                {this.isOpen && (
                     portal ? (
                         <Portal node={portal === true ? document.body : portal}>
                             {this.renderOptionsList()}

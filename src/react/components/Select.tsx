@@ -52,6 +52,15 @@ export class Select extends React.Component<ISelectProps, IState> {
         return options.find(o => o.value === currentValue);
     }
 
+    private get isOpen() {
+        const { open } = this.props;
+        const { isOpen } = this.state;
+        if (typeof open === 'boolean') {
+            return open;
+        }
+        return isOpen;
+    }
+
     private handleClick = (event: React.SyntheticEvent<HTMLDivElement>) => {
         const { stopPropagation, portal, onOpen } = this.props;
         event.preventDefault();
@@ -78,9 +87,8 @@ export class Select extends React.Component<ISelectProps, IState> {
     }
 
     private handleWindowClick = (event: Event) => {
-        const { isOpen } = this.state;
         const { onClose } = this.props;
-        if (isOpen && this.listRef.current && !this.listRef.current.contains(event.target as any)) {
+        if (this.isOpen && this.listRef.current && !this.listRef.current.contains(event.target as any)) {
             this.setState({
                 isOpen: false,
             }, onClose);
@@ -89,8 +97,7 @@ export class Select extends React.Component<ISelectProps, IState> {
 
     private handleWindowResize = (event: Event) => {
         const { onClose } = this.props;
-        const { isOpen } = this.state;
-        if (isOpen) {
+        if (this.isOpen) {
             this.setState({
                 isOpen: false,
             }, onClose);
@@ -169,8 +176,9 @@ export class Select extends React.Component<ISelectProps, IState> {
 
     public componentDidUpdate(prevProps: ISelectProps, prevState: IState) {
         const { isOpen } = this.state;
-        if (isOpen !== prevState.isOpen) {
-            if (isOpen) {
+        const { open } = this.props;
+        if (typeof open === 'boolean' ? open !== prevProps.open : isOpen !== prevState.isOpen) {
+            if (this.isOpen) {
                 window.requestAnimationFrame(() => {
                     window.addEventListener('click', this.handleWindowClick);
                 });
@@ -196,15 +204,17 @@ export class Select extends React.Component<ISelectProps, IState> {
             placeholder,
             maxHeight,
             optionListWidth,
+            open,
             onOpen,
             onClose,
             onChange,
             extraRound,
             stopPropagation,
             portal,
+            portalScroll,
+            portalScrollParent,
             ...rest
         } = this.props;
-        const { isOpen } = this.state;
 
         return (
             <div
@@ -215,7 +225,7 @@ export class Select extends React.Component<ISelectProps, IState> {
                     [styles.select]: true,
                     [styles.extraRound]: !!extraRound,
                     [styles[selectSize]]: true,
-                    [styles.focus]: isOpen,
+                    [styles.focus]: this.isOpen,
                     [styles.cleanBorder]: cleanBorder,
                     [className]: !!className,
                 })}
@@ -242,7 +252,7 @@ export class Select extends React.Component<ISelectProps, IState> {
                     <path d="M3.646 5.354l-3-3 .708-.708L4 4.293l2.646-2.647.708.708-3 3L4 5.707l-.354-.353z" fillRule="evenodd" />
                 </svg>
 
-                {isOpen && (
+                {this.isOpen && (
                     portal ? (
                         <Portal node={portal === true ? document.body : portal}>
                             {this.renderOptionsList()}

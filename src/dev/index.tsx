@@ -3,8 +3,20 @@ import * as ReactDOM from 'react-dom';
 import * as styles from './index.scss';
 import { Section, SectionBlock, SectionTitle, Input, ControlSizes, InputLabel, Textarea, Button, ButtonTypes, Checkbox, IconButton, Select, OptionMenu, Tabs } from '../react'
 
-class App extends React.Component {
+interface IState {
+    controlledSelectOpen: boolean;
+    controlledOptionMenuOpen: boolean;
+}
+
+class App extends React.Component<{}, IState> {
+    public state = {
+        controlledSelectOpen: false,
+        controlledOptionMenuOpen: false,
+    }
+
     public render() {
+        const { controlledSelectOpen, controlledOptionMenuOpen } = this.state;
+
         return (
             <>
                 <Section>
@@ -75,6 +87,18 @@ class App extends React.Component {
                                 { label: 'Option 2', value: '2' },
                             ]}
                         />
+                        <Select
+                            portal
+                            open={controlledSelectOpen}
+                            onOpen={() => this.setState({ controlledSelectOpen: true })}
+                            onClose={() => this.setState({ controlledSelectOpen: false })}
+                            className={styles.select}
+                            selectSize={ControlSizes.S}
+                            options={[
+                                { label: 'Option 1', value: '1' },
+                                { label: 'Option 2', value: '2' },
+                            ]}
+                        />
                     </SectionBlock>
                     <SectionBlock>
                         <Textarea className={styles.textarea}></Textarea>
@@ -124,6 +148,22 @@ class App extends React.Component {
 
                         <OptionMenu<string>
                             portal
+                            options={[
+                                {
+                                    label: 'Click me',
+                                    value: 'click-me',
+                                    onClick: (v: string) => {
+                                        alert(v);
+                                    }
+                                }
+                            ]}
+                        />
+
+                        <OptionMenu<string>
+                            portal
+                            open={controlledOptionMenuOpen}
+                            onOpen={() => this.setState({ controlledOptionMenuOpen: true })}
+                            onClose={() => this.setState({ controlledOptionMenuOpen: false })}
                             options={[
                                 {
                                     label: 'Click me',

@@ -9,6 +9,7 @@ export interface IOption<V = any> {
 
 export interface IOptionMenuProps<V = any> extends
     React.HTMLAttributes<HTMLDivElement> {
+    open?: boolean;
     optionMenuSize?: ControlSizes;
     stopPropagation?: boolean;
     portal?: HTMLElement | true;
