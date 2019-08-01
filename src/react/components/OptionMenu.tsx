@@ -69,10 +69,10 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
     }
 
     private renderOptionsList = () => {
-        const { options, portal, stopPropagation, hangLeft: hangLeftOverride, optionMenuSize, optionListClassName = '' } = this.props;
+        const { options, portal, portalScrollParent, stopPropagation, hangLeft: hangLeftOverride, optionMenuSize, optionListClassName = '' } = this.props;
         const { isOpen, hangLeft, boundingClientRect } = this.state as IState;
-        const s_top = document.body.scrollTop || document.documentElement.scrollTop;
-        const s_left = document.body.scrollLeft || document.documentElement.scrollLeft;
+        const s_top = portalScrollParent ? portalScrollParent.scrollTop : document.body.scrollTop || document.documentElement.scrollTop;
+        const s_left = portalScrollParent ? portalScrollParent.scrollLeft : document.body.scrollLeft || document.documentElement.scrollLeft;
 
         return (
             <ul

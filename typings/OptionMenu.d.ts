@@ -12,6 +12,7 @@ export interface IOptionMenuProps<V = any> extends
     optionMenuSize?: ControlSizes;
     stopPropagation?: boolean;
     portal?: HTMLElement | true;
+    portalScrollParent?: HTMLElement;
     hangLeft?: boolean;
     extraRound?: boolean;
     options: IOption<V>[];

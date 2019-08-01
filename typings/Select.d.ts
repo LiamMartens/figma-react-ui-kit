@@ -19,6 +19,7 @@ export interface ISelectProps extends
     cleanBorder?: boolean;
     stopPropagation?: boolean;
     portal?: HTMLElement | true;
+    portalScrollParent?: HTMLElement;
     maxHeight?: string | number;
     optionListWidth?: string | number;
     optionListClassName?: string;

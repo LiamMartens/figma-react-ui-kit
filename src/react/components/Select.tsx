@@ -105,10 +105,11 @@ export class Select extends React.Component<ISelectProps, IState> {
             optionListClassName = '',
             selectSize,
             portal,
+            portalScrollParent,
         } = this.props;
         const { boundingClientRect } = this.state;
-        const s_top = document.body.scrollTop || document.documentElement.scrollTop;
-        const s_left = document.body.scrollLeft || document.documentElement.scrollLeft;
+        const s_top = portalScrollParent ? portalScrollParent.scrollTop : document.body.scrollTop || document.documentElement.scrollTop;
+        const s_left = portalScrollParent ? portalScrollParent.scrollLeft : document.body.scrollLeft || document.documentElement.scrollLeft;
 
         return (
             <ul
