@@ -45,7 +45,7 @@ export class OptionMenu<V = any> extends React.Component<IOptionMenuProps<V>, IS
         if (
             this.isOpen
             && this.optionListRef.current
-            && !this.optionListRef.current.contains(event.target as any)
+            && (!(event.target instanceof Node) || !this.optionListRef.current.contains(event.target as any))
         ) {
             this.setState({
                 isOpen: false,

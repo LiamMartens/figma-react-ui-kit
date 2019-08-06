@@ -88,7 +88,10 @@ export class Select extends React.Component<ISelectProps, IState> {
 
     private handleWindowClick = (event: Event) => {
         const { onClose } = this.props;
-        if (this.isOpen && this.listRef.current && !this.listRef.current.contains(event.target as any)) {
+        if (
+            this.isOpen
+            && this.listRef.current
+            && (!(event.target instanceof Node) || !this.listRef.current.contains(event.target as any))) {
             this.setState({
                 isOpen: false,
             }, onClose);
