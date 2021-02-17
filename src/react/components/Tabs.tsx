@@ -34,7 +34,7 @@ export class Tabs extends React.Component<ITabsProps, IState> {
 
     public render() {
         const { currentTab } = this.state;
-        const { className, tabs, onSwitch, ...rest } = this.props;
+        const { className, tabClassName, tabs, onSwitch, ...rest } = this.props;
 
         const activeTab = this.activeTab;
         const ActiveTabComponent = activeTab ? activeTab.view : undefined;
@@ -57,6 +57,7 @@ export class Tabs extends React.Component<ITabsProps, IState> {
                                 className={classNames({
                                     [styles.tabEntry]: true,
                                     [styles.active]: (!currentTab && index === 0) || tab.id === currentTab,
+                                    [tabClassName]: !!tabClassName,
                                 })}
                             >
                                 {Icon && <Icon />}
