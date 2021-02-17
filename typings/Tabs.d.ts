@@ -9,6 +9,7 @@ export interface ITab {
 
 export interface ITabsProps extends React.HTMLAttributes<HTMLDivElement> {
     tabs: ITab[];
+    tabClassName?: string;
     defaultTab?: string;
     onSwitch?: (tab: ITab) => void;
 }
