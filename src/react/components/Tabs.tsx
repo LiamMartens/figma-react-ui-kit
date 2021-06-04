@@ -32,6 +32,14 @@ export class Tabs extends React.Component<ITabsProps, IState> {
         });
     }
 
+    private handleClickTab = (tab: ITab) => {
+        const { onTabClick } = this.props;
+        this.handleSwitchTab(tab);
+        if (onTabClick) {
+            onTabClick(tab);
+        }
+    }
+
     public render() {
         const { currentTab } = this.state;
         const { className, tabClassName, tabs, onSwitch, ...rest } = this.props;
@@ -53,7 +61,7 @@ export class Tabs extends React.Component<ITabsProps, IState> {
                         return (
                             <li
                                 key={tab.id}
-                                onClick={() => this.handleSwitchTab(tab)}
+                                onClick={() => this.handleClickTab(tab)}
                                 className={classNames({
                                     [styles.tabEntry]: true,
                                     [styles.active]: (!currentTab && index === 0) || tab.id === currentTab,

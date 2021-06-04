@@ -12,4 +12,5 @@ export interface ITabsProps extends React.HTMLAttributes<HTMLDivElement> {
     tabClassName?: string;
     defaultTab?: string;
     onSwitch?: (tab: ITab) => void;
+    onTabClick?: (tab: ITab) => void;
 }

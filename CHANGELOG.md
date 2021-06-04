@@ -1,5 +1,8 @@
 # CHANGELOG
 ## v0.1.5
+* Added `onTabClick` property to `Tabs` component
+
+## v0.1.5
 * Added `tabClassName` property to `Tabs` component
 
 ## v0.1.0
