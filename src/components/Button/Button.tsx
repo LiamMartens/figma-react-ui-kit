@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { ControlSizes, ButtonTypes } from '../../constants';
 
 export type ButtonProps = React.PropsWithChildren<
-  React.BaseHTMLAttributes<HTMLButtonElement> & {
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
     buttonSize?: ControlSizes;
     buttonType?: ButtonTypes;
     extraRound?: boolean;

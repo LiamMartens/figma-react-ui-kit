@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.1
+* Minor fix to `Button` props typing
+
 ## v0.2.0
 * Updated components for `react@>=17`
 * Removed `devServer` and replaced it with storybook
