@@ -1,4 +1,6 @@
 # Figma React UI Kit
+[![npm-badge](https://badge.fury.io/js/figma-react-ui-kit.svg)](https://www.npmjs.com/package/figma-react-ui-kit)  
+[Latest Storybook](https://development--6276bd991b0b1d004aff360e.chromatic.com)  
 This library contains some generic components for creating Figma styled UI's
 
 ## Getting started
