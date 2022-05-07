@@ -14,11 +14,12 @@ export type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
   tabs: ITab[];
   defaultTab: string;
   tabClassName?: string;
+  extra?: React.ReactNode;
   onSwitch?: (tab: ITab) => void;
   onTabClick?: (tab: ITab) => void;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultTab, tabClassName, className = '', ...rest }) => {
+export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultTab, tabClassName, extra, className = '', ...rest }) => {
   const [currentTab, setCurrentTab] = React.useState(defaultTab);
 
   const activeTab = React.useMemo(() => {
@@ -38,18 +39,23 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultT
       {...rest}
       className={cx(className, styles.tabs)}
     >
-      <ul className={styles.tabsList}>
-        {tabs.map((tab, index) => (
-          <TabsTab
-            key={tab.id}
-            index={index}
-            tab={tab}
-            currentTab={currentTab}
-            onTabClick={onHandleTabClick}
-            tabClassName={tabClassName}
-          />
-        ))}
-      </ul>
+      <div className={styles.tabsHeader}>
+        <ul className={styles.tabsList}>
+          {tabs.map((tab, index) => (
+            <TabsTab
+              key={tab.id}
+              index={index}
+              tab={tab}
+              currentTab={currentTab}
+              onTabClick={onHandleTabClick}
+              tabClassName={tabClassName}
+            />
+          ))}
+        </ul>
+        {(!!extra) && (
+          <div className={styles.extra}>{extra}</div>
+        )}
+      </div>
       <div className={styles.view}>
         {ActiveTabComponent && (
           <ActiveTabComponent />
