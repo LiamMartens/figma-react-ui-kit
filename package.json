@@ -2,7 +2,8 @@
   "name": "figma-react-ui-kit",
   "version": "0.2.0",
   "description": "Contains some Figma styled components",
-  "main": "lib/react.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build-storybook": "build-storybook",
     "start-storybook": "start-storybook",
@@ -65,12 +66,7 @@
     "react": "^17",
     "react-dom": "^17"
   },
-  "types": "index.d.ts",
   "files": [
-    "index.d.ts",
-    "lib/*.css",
-    "lib/*.js",
-    "typings/*.d.ts",
-    "constants/*.ts"
+    "lib"
   ]
 }

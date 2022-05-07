@@ -8,7 +8,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
   entry: {
     style: path.resolve(__dirname, 'src/scss/style/style.scss'),
-    react: path.resolve(__dirname, 'src/index.tsx'),
+    index: path.resolve(__dirname, 'src/index.tsx'),
   },
   output: {
     path: path.resolve(__dirname, 'lib'),
