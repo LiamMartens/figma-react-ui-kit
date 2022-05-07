@@ -1,6 +1,6 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Contains some Figma styled components",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
