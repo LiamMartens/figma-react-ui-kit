@@ -7,7 +7,12 @@ export interface ITab {
   id: string;
   label: string;
   view: React.ComponentType;
+  hidden?: boolean;
   icon?: React.ComponentType;
+}
+
+export type TabsRef = {
+  setCurrentTab: (tab: string) => void;
 }
 
 export type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -19,7 +24,16 @@ export type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
   onTabClick?: (tab: ITab) => void;
 }
 
-export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultTab, tabClassName, extra, className = '', ...rest }) => {
+export const Tabs = React.forwardRef<TabsRef, TabsProps>(({ 
+  tabs,
+  onSwitch,
+  onTabClick,
+  defaultTab,
+  tabClassName,
+  extra,
+  className = '',
+  ...rest
+}, ref) => {
   const [currentTab, setCurrentTab] = React.useState(defaultTab);
 
   const activeTab = React.useMemo(() => {
@@ -34,6 +48,10 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultT
 
   const ActiveTabComponent = activeTab ? activeTab.view : undefined;
 
+  React.useImperativeHandle(ref, () => ({
+    setCurrentTab,
+  }), [setCurrentTab]);
+
   return (
     <div
       {...rest}
@@ -41,7 +59,7 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultT
     >
       <div className={styles.tabsHeader}>
         <ul className={styles.tabsList}>
-          {tabs.map((tab, index) => (
+          {tabs.filter((tab) => !tab.hidden).map((tab, index) => (
             <TabsTab
               key={tab.id}
               index={index}
@@ -63,4 +81,4 @@ export const Tabs: React.FC<TabsProps> = ({ tabs, onSwitch, onTabClick, defaultT
       </div>
     </div>
   );
-}
+});
