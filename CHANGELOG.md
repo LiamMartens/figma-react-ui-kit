@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.2.5
+* Added custom `ref` to `Tabs` component to programmatically update local state
+* Added `hidden` option to tabs
+
 ## v0.2.4
 * Added `extra` prop to add extra content to the side of the tabs list
 
