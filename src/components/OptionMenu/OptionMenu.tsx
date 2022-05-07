@@ -34,7 +34,7 @@ export type OptionMenuProps<V = any> = React.HTMLAttributes<HTMLDivElement> & {
   extraRound?: boolean;
   options: IOption<V>[];
   optionListClassName?: string;
-  trigger: (props: TriggerProps) => React.ReactNode;
+  trigger?: (props: TriggerProps) => React.ReactNode;
   onOpen?: () => void;
   onClose?: () => void;
 }
