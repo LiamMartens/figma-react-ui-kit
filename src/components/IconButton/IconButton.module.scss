@@ -1,0 +1,57 @@
+.iconButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 3.2em;
+  padding: 0 1em;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: $color-darkgray;
+  background-color: transparent;
+
+  &.extraRound {
+    border-radius: 6px;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &:hover {
+    background-color: rgba($color-dark, .06);
+  }
+
+  &.on,
+  &:active {
+    border-color: $color-primary;
+    box-shadow: inset 0 0 0 1px $color-primary;
+  }
+
+  &.on {
+    background-color: $color-primary;
+    color: $color-light;
+  }
+
+  &.s {
+    font-size: $font-size-xs;
+  }
+
+  &.m {
+    font-size: $font-size-m;
+  }
+
+  &.l {
+    font-size: $font-size-l;
+  }
+
+  svg {
+    display: inline-block;
+    line-height: 3.2em;
+    height: 1em;
+    width: auto;
+    fill: currentColor;
+  }
+}

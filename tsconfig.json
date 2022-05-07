@@ -1,25 +1,22 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2015",
-        "lib": [
-            "es2017",
-            "es2015",
-            "dom"
-        ],
-        "jsx": "react",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "outDir": "./dist",
-        "rootDir": "./",
-        "baseUrl": "./",
-        "typeRoots": [
-            "./typings"
-        ]
-    },
-    "include": [
-        "./src/**/*",
-        "./typings/**/*",
-        "./constants/**/*"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "lib": [
+      "es2017",
+      "es2015",
+      "dom"
+    ],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "outDir": "./lib",
+    "declaration": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./typings/*.ts"
+  ]
 }

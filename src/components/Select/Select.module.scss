@@ -1,0 +1,134 @@
+.select,
+.optionsList {
+  &.s {
+    font-size: $font-size-s;
+  }
+
+  &.m {
+    font-size: $font-size-m;
+  }
+
+  &.l {
+    font-size: $font-size-l;
+  }
+}
+
+.select {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid rgba($color-dark, .1);
+  height: 2.85em;
+  padding: 0 0.857em;
+  color: $color-darkgray;
+  border-radius: 3px;
+  user-select: none;
+
+  &.extraRound {
+
+    &,
+    .optionsList {
+      border-radius: 6px;
+    }
+  }
+
+  &.cleanBorder {
+    border: 1px solid transparent;
+
+    &:hover {
+      border: 1px solid rgba($color-dark, .1);
+
+      .arrow {
+        fill: $color-darkgray;
+      }
+    }
+
+    .arrow {
+      fill: $color-mediumgray;
+    }
+  }
+
+  &.focus,
+  &.cleanBorder.focus,
+  &:focus {
+    border: 2px solid $color-primary;
+    padding: 0 calc(0.857em - 1px);
+  }
+
+  .input {
+    display: none;
+  }
+
+  .placeholder {
+    color: $color-mediumgray;
+  }
+
+  .value {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: $font-family-body;
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: .5em;
+
+      svg {
+        height: 1em;
+        width: auto;
+        fill: currentColor;
+      }
+    }
+  }
+
+  .arrow {
+    display: block;
+    margin-left: auto;
+    fill: $color-darkgray;
+  }
+}
+
+.optionsList {
+  position: absolute;
+  display: block;
+  overflow: auto;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  padding: .4em 0;
+  margin: 0;
+  list-style: none;
+  background: $color-darkgray;
+  color: $color-light;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba($color-dark, .1);
+
+  &.portaled {
+    right: auto;
+  }
+
+  .option {
+    position: relative;
+    display: block;
+    padding: .5em 1em .45em 3em;
+    font-size: inherit;
+    font-family: $font-family-body;
+
+    &:hover {
+      background: $color-primary;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 50%;
+      left: .5em;
+      fill: $color-light;
+      transform: translateY(-48%);
+    }
+  }
+}
