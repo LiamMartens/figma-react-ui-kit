@@ -8,12 +8,14 @@ import { Portal } from 'react-portal';
 export interface IOption<V = any> {
   label: string;
   value: V;
-  onClick: (val: V) => void;
+  icon?: React.ComponentType;
+  onClick?: (val: V) => void;
 }
 
 export type OptionMenuProps<V = any> = React.HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
   optionMenuSize?: ControlSizes;
+  placement?: 'overlay' | 'below';
   stopPropagation?: boolean;
   portal?: HTMLElement | true;
   portalScrollParent?: HTMLElement;
@@ -41,6 +43,7 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
   portalScrollParent,
   portalScroll,
   hangLeft: hangLeftProp,
+  placement = 'overlay',
   onOpen,
   onClose,
   ...props
@@ -76,6 +79,7 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
 
   const handleClick = React.useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     const rect = OptionMenuRef.current?.getBoundingClientRect();
+    console.log('rect', rect);
     if (stopPropagation) {
       event.stopPropagation();
       window.dispatchEvent(new Event('click'));
@@ -83,15 +87,15 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
     setIsOpen(!isOpenValue);
     if (rect) {
       setHangLeft(window.innerWidth < (rect.x + rect.width + 20));
-      setBoundingClientRet(portal ? rect : null);
+      setBoundingClientRet(rect);
     }
     if (isOpenValue && onClose) onClose();
     else if (!isOpenValue && onOpen) onOpen();
   }, [stopPropagation, isOpenValue, portal, boundingClientRect, onOpen, onClose]);
 
   const handleOptionClick = React.useCallback((opt: IOption) => {
-    opt.onClick(opt.value);
     setIsOpen(false);
+    if (opt.onClick) opt.onClick(opt.value);
     if (onClose) onClose();
   }, [onClose]);
 
@@ -125,25 +129,28 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
             left: `${s_left + boundingClientRect.left}px`,
             minWidth: `${boundingClientRect.width}px`,
           } : {}),
+          ...(placement === 'below' ? {
+            transform: `translateY(${(boundingClientRect?.height ?? 0) + 4}px)`
+          } : {}),
         }}
       >
-        {options.map(o => (
+        {options.map(({ icon: Icon, ...opt }) => (
           <li
-            key={o.label}
+            key={opt.label}
             className={styles.option}
             onClick={(event: React.SyntheticEvent<HTMLLIElement>) => {
               if (stopPropagation) {
                 event.stopPropagation();
               }
-              handleOptionClick(o);
+              handleOptionClick(opt);
             }}
           >
-            {o.label}
+            {opt.label}
           </li>
         ))}
       </ul>
     );
-  }, [isOpenValue, stopPropagation, options, portal, hangLeftProp, portalScroll, portalScrollParent, optionMenuSize, optionListClassName, hangLeft, boundingClientRect, handleOptionClick]);
+  }, [isOpenValue, placement, stopPropagation, options, portal, hangLeftProp, portalScroll, portalScrollParent, optionMenuSize, optionListClassName, hangLeft, boundingClientRect, handleOptionClick]);
 
   React.useEffect(() => {
     window.addEventListener('resize', handleWindowResize);

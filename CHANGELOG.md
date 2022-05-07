@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.2
+* Add `placement` option to `OptionMenu`
+
 ## v0.2.1
 * Minor fix to `Button` props typing
 
