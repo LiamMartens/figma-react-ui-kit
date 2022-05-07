@@ -57,4 +57,13 @@
   &:hover {
     background: $color-primary;
   }
+
+  .content {
+    display: flex;
+    align-items: center;
+
+    .label {
+      margin-left: 8px;
+    }
+  }
 }

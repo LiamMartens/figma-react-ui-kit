@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.7
+* Support `icon` in `OptionMenu`
+
 ## v0.2.6
 * Updated `OptionMenu` with `floating-ui`
 
