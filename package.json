@@ -1,6 +1,6 @@
 {
   "name": "figma-react-ui-kit",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Contains some Figma styled components",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -21,6 +21,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.17.10",
+    "@floating-ui/react-dom": "^0.7.0",
     "@storybook/addon-actions": "^6.4.22",
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",
@@ -58,7 +59,8 @@
   "peerDependencies": {
     "react": "^16||^17",
     "react-dom": "^16||^17",
-    "react-portal": "^4.2.0"
+    "react-portal": "^4.2.0",
+    "@floating-ui/react-dom": "^0.7.0"
   },
   "resolutions": {
     "@types/react": "^17",
