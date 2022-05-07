@@ -10,6 +10,7 @@
   border: 1px solid transparent;
   border-radius: 3px;
   color: $color-darkgray;
+  font-family: $font-family-body;
   background-color: transparent;
 
   &.extraRound {
@@ -35,6 +36,14 @@
     color: $color-light;
   }
 
+  &.muted {
+    color: $color-mediumgray;
+
+    &:hover {
+      color: $color-dark;
+    }
+  }
+
   &.s {
     font-size: $font-size-xs;
   }
@@ -48,10 +57,19 @@
   }
 
   svg {
-    display: inline-block;
+    display: block;
     line-height: 3.2em;
     height: 1em;
     width: auto;
     fill: currentColor;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+  }
+
+  .label {
+    margin-left: 8px;
   }
 }

@@ -7,12 +7,16 @@ export type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   buttonSize?: ControlSizes;
   on?: boolean;
   extraRound?: boolean;
+  muted?: boolean;
+  label?: React.ReactNode;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(({
   buttonSize = ControlSizes.S,
   on = false,
   extraRound = false,
+  muted = false,
+  label,
   className,
   children,
   ...props
@@ -26,10 +30,16 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>((
         styles.iconButton,
         styles[buttonSize],
         !!on && styles.on,
+        !!muted && styles.muted,
         !!extraRound && styles.extraRound,
       )}
     >
-      {children}
+      <div className={styles.content}>
+        <span>
+          {children}
+        </span>
+        {!!label && <span className={styles.label}>{label}</span>}
+      </div>
     </button>
   )
 });
