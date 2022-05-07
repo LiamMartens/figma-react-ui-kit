@@ -4,6 +4,7 @@ import cx from 'classnames';
 import { IconButton } from '../IconButton';
 import { ControlSizes } from '../../constants';
 import { Portal } from 'react-portal';
+import { useFloating, shift, autoUpdate, offset, Placement } from '@floating-ui/react-dom';
 
 export interface IOption<V = any> {
   label: string;
@@ -22,15 +23,9 @@ export type TriggerProps = {
 export type OptionMenuProps<V = any> = React.HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
   optionMenuSize?: ControlSizes;
-  placement?: 'overlay' | 'below';
+  placement?: Placement;
+  overlayTrigger?: boolean;
   stopPropagation?: boolean;
-  portal?: HTMLElement | true;
-  portalScrollParent?: HTMLElement;
-  portalScroll?: {
-    top: number | (() => number);
-    left: number | (() => number);
-  };
-  hangLeft?: boolean;
   extraRound?: boolean;
   options: IOption<V>[];
   optionListClassName?: string;
@@ -42,34 +37,29 @@ export type OptionMenuProps<V = any> = React.HTMLAttributes<HTMLDivElement> & {
 export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProps>(({
   optionMenuSize = ControlSizes.S,
   stopPropagation = false,
+  overlayTrigger = true,
   open,
-  portal,
   options,
   extraRound,
   className,
   optionListClassName,
-  portalScrollParent,
-  portalScroll,
-  hangLeft: hangLeftProp,
-  placement = 'overlay',
+  placement,
   trigger,
   onOpen,
   onClose,
   children,
   ...props
 }, ref) => {
-  const OptionMenuRef = React.useRef<HTMLDivElement | null>(null);
-  const optionListRef = React.useRef<HTMLUListElement | null>(null);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [hangLeft, setHangLeft] = React.useState(false);
-  const [boundingClientRect, setBoundingClientRet] = React.useState<{
-    top: number;
-    left: number;
-    width: number;
-    height: number;
-  } | null>(null);
+  const {x, y, strategy, reference, floating, refs} = useFloating({
+    placement: placement || 'bottom-start',
+    middleware: overlayTrigger ? [shift()] : [shift(), offset(4)],
+    whileElementsMounted: autoUpdate,
+  });
 
-  React.useImperativeHandle<HTMLDivElement | null, HTMLDivElement | null>(ref, () => OptionMenuRef.current);
+  React.useImperativeHandle<HTMLDivElement | null, HTMLDivElement | null>(ref, () => (
+    refs.reference.current as (HTMLDivElement | null)
+  ));
 
   const isOpenValue = React.useMemo(() => {
     if (typeof open === 'boolean') return open;
@@ -79,8 +69,8 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
   const handleWindowClick = React.useCallback((event: Event) => {
     if (
       isOpenValue
-      && optionListRef.current
-      && (!(event.target instanceof Node) || !optionListRef.current.contains(event.target as any))
+      && refs.floating.current
+      && (!(event.target instanceof Node) || !refs.floating.current.contains(event.target as any))
     ) {
       setIsOpen(false);
       if (onClose) onClose();
@@ -88,32 +78,20 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
   }, [isOpenValue, onClose]);
 
   const handleClick = React.useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    const rect = OptionMenuRef.current?.getBoundingClientRect();
-    console.log('rect', rect);
     if (stopPropagation) {
       event.stopPropagation();
       window.dispatchEvent(new Event('click'));
     }
     setIsOpen(!isOpenValue);
-    if (rect) {
-      setHangLeft(window.innerWidth < (rect.x + rect.width + 20));
-      setBoundingClientRet(rect);
-    }
     if (isOpenValue && onClose) onClose();
     else if (!isOpenValue && onOpen) onOpen();
-  }, [stopPropagation, isOpenValue, portal, boundingClientRect, onOpen, onClose]);
+  }, [stopPropagation, isOpenValue, onOpen, onClose]);
 
   const handleOptionClick = React.useCallback((opt: IOption) => {
     setIsOpen(false);
     if (opt.onClick) opt.onClick(opt.value);
     if (onClose) onClose();
   }, [onClose]);
-
-  const handleWindowResize = React.useCallback((event: Event) => {
-    if (isOpenValue) {
-      setIsOpen(false);
-    }
-  }, [isOpenValue]);
 
   const triggerElement = React.useMemo(() => {
     if (trigger) {
@@ -140,32 +118,19 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
   }, [trigger, isOpenValue, extraRound, optionMenuSize, handleClick]);
 
   const optionsList = React.useMemo(() => {
-    const s_top = portalScroll
-      ? (typeof portalScroll.top === 'number' ? portalScroll.top : portalScroll.top())
-      : (portalScrollParent ? portalScrollParent.scrollTop : document.body.scrollTop || document.documentElement.scrollTop);
-    const s_left = portalScroll
-      ? (typeof portalScroll.left === 'number' ? portalScroll.left : portalScroll.left())
-      : (portalScrollParent ? portalScrollParent.scrollLeft : document.body.scrollLeft || document.documentElement.scrollLeft);
-
     return (
       <ul
-        ref={optionListRef}
+        ref={floating}
         className={cx(
           styles.optionList,
           optionListClassName,
           styles[optionMenuSize],
           isOpenValue && styles.isOpen,
-          (typeof hangLeftProp !== 'undefined' && hangLeftProp !== null ? hangLeftProp : hangLeft) && styles.hangLeft
         )}
         style={{
-          ...((portal && boundingClientRect) ? {
-            top: `${s_top + boundingClientRect.top}px`,
-            left: `${s_left + boundingClientRect.left}px`,
-            minWidth: `${boundingClientRect.width}px`,
-          } : {}),
-          ...(placement === 'below' ? {
-            transform: `translateY(${(boundingClientRect?.height ?? 0) + 4}px)`
-          } : {}),
+          position: strategy,
+          top: y ?? '',
+          left: x ?? '',
         }}
       >
         {options.map(({ icon: Icon, ...opt }) => (
@@ -184,12 +149,8 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
         ))}
       </ul>
     );
-  }, [isOpenValue, placement, stopPropagation, options, portal, hangLeftProp, portalScroll, portalScrollParent, optionMenuSize, optionListClassName, hangLeft, boundingClientRect, handleOptionClick]);
+  }, [x, y, strategy, floating, isOpenValue, placement, stopPropagation, options, optionMenuSize, optionListClassName, handleOptionClick]);
 
-  React.useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-    return () => window.removeEventListener('resize', handleWindowResize);
-  }, [handleWindowResize]);
   React.useEffect(() => {
     if (isOpenValue) {
       window.requestAnimationFrame(() => (
@@ -207,22 +168,19 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
   return (
     <div
       {...props}
-      ref={OptionMenuRef}
+      ref={overlayTrigger ? undefined : reference}
       className={cx(
         className,
         styles.optionMenu,
         !!extraRound && styles.extraRound,
       )}
     >
+      {overlayTrigger && <div ref={reference} />}
       {triggerElement}
       {isOpenValue && (
-        portal ? (
-          <Portal node={portal === true ? document.body : portal}>
-            {optionsList}
-          </Portal>
-        ) : (
-          optionsList
-        )
+        <Portal>
+          {optionsList}
+        </Portal>
       )}
     </div>
   );

@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.6
+* Updated `OptionMenu` with `floating-ui`
+
 ## v0.2.5
 * Added custom `ref` to `Tabs` component to programmatically update local state
 * Added `hidden` option to tabs

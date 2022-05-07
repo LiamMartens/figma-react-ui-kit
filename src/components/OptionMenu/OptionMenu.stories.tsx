@@ -10,7 +10,11 @@ export default {
   },
 } as ComponentMeta<typeof OptionMenu>;
 
-const Template: ComponentStory<typeof OptionMenu> = (args) => <OptionMenu {...args} />;
+const Template: ComponentStory<typeof OptionMenu> = (args) => (
+  <div style={{ padding: '100px' }}>
+    <OptionMenu {...args} />
+  </div>
+);
 
 export const Standard = Template.bind({});
 Standard.args = {
