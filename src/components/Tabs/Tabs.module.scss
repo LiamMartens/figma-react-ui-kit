@@ -1,13 +1,23 @@
 .tabs {
+  .tabsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid $color-gray;
+  }
+
   .tabsList {
     display: flex;
-    padding: 0;
+    padding: 0 .72em;
     margin: 0;
     list-style: none;
-    border-bottom: 1px solid $color-gray;
     font-family: $font-family-body;
     font-size: $font-size-s;
     line-height: 3.6em;
+  }
+
+  .extra {
+    padding: 0 .72em;
   }
 
   .tabEntry {
@@ -18,14 +28,6 @@
     font-weight: 600;
     color: $color-mediumgray;
     cursor: pointer;
-
-    &:first-child {
-      padding-left: 1.44em;
-    }
-
-    &:last-child {
-      padding-right: 1.44em;
-    }
 
     &:hover,
     &.active {

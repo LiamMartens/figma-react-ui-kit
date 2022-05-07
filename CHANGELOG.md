@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.4
+* Added `extra` prop to add extra content to the side of the tabs list
+
 ## v0.2.3
 * Fix `trigger` required in `OptionMenu` props
 
