@@ -1,4 +1,8 @@
 # CHANGELOG
+
+## v0.2.0
+* Updated components for `react@>=17`
+* Removed `devServer` and replaced it with storybook
 ## v0.1.5
 * Added `onTabClick` property to `Tabs` component
 

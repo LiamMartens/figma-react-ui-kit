@@ -10,8 +10,8 @@ npm install --save figma-react-ui-kit
 ## Import css
 Be sure to import the css files.
 ```
-node_modules/figma-react-ui-kit/dist/react.css
-node_modules/figma-react-ui-kit/dist/style.css
+node_modules/figma-react-ui-kit/lib/react.css
+node_modules/figma-react-ui-kit/lib/style.css
 ```
 
 ## Included components

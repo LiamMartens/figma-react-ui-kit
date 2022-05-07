@@ -1,0 +1,84 @@
+.button {
+  display: inline-block;
+  flex-grow: 1;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0 1.07em;
+  border: 1px solid $color-primary;
+  outline: 0;
+  font-family: $font-family-body;
+  font-weight: 500;
+  font-size: 14px;
+  height: 2.85em;
+  color: $color-light;
+  border-radius: 3px;
+
+  &.extraRound {
+    border-radius: 6px;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &:active {
+    padding: 0 calc(1.07em - 1px);
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &.s {
+    font-size: $font-size-s;
+  }
+
+  &.m {
+    font-size: $font-size-m;
+  }
+
+  &.l {
+    font-size: $font-size-l;
+  }
+
+  &.primary {
+    background-color: $color-primary;
+
+    &:active {
+      border: 2px solid rgba($color-dark, .3);
+    }
+
+    &:disabled {
+      background-color: rgba($color-dark, .3);
+      border-color: transparent;
+    }
+  }
+
+  &.ghost {
+    border-color: $color-darkgray;
+    color: $color-darkgray;
+    background: transparent;
+
+    &:active {
+      border: 2px solid $color-primary;
+    }
+
+    &:disabled {
+      opacity: .4;
+    }
+  }
+
+  &.destructive {
+    border-color: rgba($color-secondary, .6);
+    color: $color-secondary;
+    background: transparent;
+
+    &:active {
+      border: 2px solid $color-secondary;
+    }
+
+    &:disabled {
+      opacity: .4;
+    }
+  }
+}
