@@ -2,6 +2,8 @@
 
 ## v0.2.2
 * Add `placement` option to `OptionMenu`
+* Added option to custom render `OptionMenu` trigger
+* Added `label` option for `IconButton`
 
 ## v0.2.1
 * Minor fix to `Button` props typing

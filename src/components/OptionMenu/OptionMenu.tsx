@@ -12,6 +12,13 @@ export interface IOption<V = any> {
   onClick?: (val: V) => void;
 }
 
+export type TriggerProps = {
+  on?: boolean;
+  extraRound?: boolean;
+  buttonSize?: ControlSizes;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}
+
 export type OptionMenuProps<V = any> = React.HTMLAttributes<HTMLDivElement> & {
   open?: boolean;
   optionMenuSize?: ControlSizes;
@@ -27,6 +34,7 @@ export type OptionMenuProps<V = any> = React.HTMLAttributes<HTMLDivElement> & {
   extraRound?: boolean;
   options: IOption<V>[];
   optionListClassName?: string;
+  trigger: (props: TriggerProps) => React.ReactNode;
   onOpen?: () => void;
   onClose?: () => void;
 }
@@ -44,8 +52,10 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
   portalScroll,
   hangLeft: hangLeftProp,
   placement = 'overlay',
+  trigger,
   onOpen,
   onClose,
+  children,
   ...props
 }, ref) => {
   const OptionMenuRef = React.useRef<HTMLDivElement | null>(null);
@@ -104,6 +114,30 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
       setIsOpen(false);
     }
   }, [isOpenValue]);
+
+  const triggerElement = React.useMemo(() => {
+    if (trigger) {
+      return trigger({
+        on: isOpenValue,
+        extraRound: extraRound,
+        buttonSize: optionMenuSize,
+        onClick: handleClick,
+      })
+    }
+
+    return (
+      <IconButton
+        on={isOpenValue}
+        extraRound={extraRound}
+        buttonSize={optionMenuSize}
+        onClick={handleClick}
+      >
+        <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+          <path fillRule="evenodd" clipRule="evenodd" d="M3 7.5C3 8.328 2.328 9 1.5 9C0.672 9 0 8.328 0 7.5C0 6.672 0.672 6 1.5 6C2.328 6 3 6.672 3 7.5ZM9 7.5C9 8.328 8.328 9 7.5 9C6.672 9 6 8.328 6 7.5C6 6.672 6.672 6 7.5 6C8.328 6 9 6.672 9 7.5ZM13.5 9C14.328 9 15 8.328 15 7.5C15 6.672 14.328 6 13.5 6C12.672 6 12 6.672 12 7.5C12 8.328 12.672 9 13.5 9Z" />
+        </svg>
+      </IconButton>
+    )
+  }, [trigger, isOpenValue, extraRound, optionMenuSize, handleClick]);
 
   const optionsList = React.useMemo(() => {
     const s_top = portalScroll
@@ -180,16 +214,7 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
         !!extraRound && styles.extraRound,
       )}
     >
-      <IconButton
-        on={isOpenValue}
-        extraRound={extraRound}
-        buttonSize={optionMenuSize}
-        onClick={handleClick}
-      >
-        <svg width="15" height="15" viewBox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
-          <path fillRule="evenodd" clipRule="evenodd" d="M3 7.5C3 8.328 2.328 9 1.5 9C0.672 9 0 8.328 0 7.5C0 6.672 0.672 6 1.5 6C2.328 6 3 6.672 3 7.5ZM9 7.5C9 8.328 8.328 9 7.5 9C6.672 9 6 8.328 6 7.5C6 6.672 6.672 6 7.5 6C8.328 6 9 6.672 9 7.5ZM13.5 9C14.328 9 15 8.328 15 7.5C15 6.672 14.328 6 13.5 6C12.672 6 12 6.672 12 7.5C12 8.328 12.672 9 13.5 9Z" />
-        </svg>
-      </IconButton>
+      {triggerElement}
       {isOpenValue && (
         portal ? (
           <Portal node={portal === true ? document.body : portal}>
