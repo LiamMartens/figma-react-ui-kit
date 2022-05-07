@@ -144,7 +144,10 @@ export const OptionMenu = React.forwardRef<HTMLDivElement | null, OptionMenuProp
               handleOptionClick(opt);
             }}
           >
-            {opt.label}
+            <div className={styles.content}>
+              {!!Icon && <Icon />}
+              <span className={styles.label}>{opt.label}</span>
+            </div>
           </li>
         ))}
       </ul>
